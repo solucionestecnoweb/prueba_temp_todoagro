@@ -31,7 +31,12 @@
                             <img t-attf-src="data:image/*;base64,{{docs.company_id.logo}}" style="width:auto; height:80px;"/>
                         </t>
                       </td>
-                      <td style="font-size:13px;"><t t-esc="docs.company_id.street"/></td>
+                      <td style="font-size:13px;">
+                        <t t-esc="docs.company_id.street"/><br/>
+                        <t t-esc="docs.company_id.street2"/><br/>
+                        <t t-esc="docs.company_id.city"/>
+                        <t t-esc="docs.company_id.zip"/>
+                      </td>
                     </tr>
                   </table>
                 </div>
