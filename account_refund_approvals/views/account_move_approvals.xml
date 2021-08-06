@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+        <!-- Add you code here -->
+        <!-- account.move inherit form view -->
+        <record id="account_view_move_form_approvals_extend" model="ir.ui.view">
+            <field name="name">account.move.inherit.view.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <!-- Add your xpath here -->
+                <xpath expr="//button[@name='action_post']" position="before">
+                    <button string="Request Approval" name="approvals_request_refund" type="object" class="oe_highlight" states="draft" attrs="{'invisible': [('type', '!=', 'out_refund')]}"/>
+                    <field name="is_approved" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="approver_ids" widget="many2many_tags" attrs="{'required': [('type', '=', 'out_refund')], 'invisible': [('type', '!=', 'out_refund')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

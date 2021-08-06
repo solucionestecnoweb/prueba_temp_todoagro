@@ -1,0 +1,116 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_refund_approvals
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-28 21:11+0000\n"
+"PO-Revision-Date: 2021-07-28 21:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_refund_approvals
+#: model:ir.model,name:account_refund_approvals.model_approval_category
+msgid "Approval Category"
+msgstr "Categoría de Aprobación"
+
+#. module: account_refund_approvals
+#: model:ir.model,name:account_refund_approvals.model_approval_request
+msgid "Approval Request"
+msgstr "Solicitud de Aprobación"
+
+#. module: account_refund_approvals
+#: model:ir.model.fields,field_description:account_refund_approvals.field_account_move__approver_ids
+msgid "Approvers"
+msgstr "Aprobadores"
+
+#. module: account_refund_approvals
+#: code:addons/account_refund_approvals/models/account_move.py:0
+#: code:addons/extra-addons/oasis/account_refund_approvals/models/account_move.py:0
+#, python-format
+msgid ""
+"Cannot confirm until an approval request is approved for this credit note."
+msgstr "No se puede confirmar hasta que se apruebe una solicitud de aprobación para esta nota de crédito"
+
+#. module: account_refund_approvals
+#: code:addons/account_refund_approvals/models/account_move.py:0
+#: code:addons/extra-addons/oasis/account_refund_approvals/models/account_move.py:0
+#, python-format
+msgid ""
+"Cannot confirm, there is an approval request refused for this credit note."
+msgstr "No se puede confirmar, hay una solicitud de aprobación rechazada para esta nota de crédito"
+
+#. module: account_refund_approvals
+#: model:ir.model.fields,field_description:account_refund_approvals.field_approval_category__has_account_refund
+#: model:ir.model.fields,field_description:account_refund_approvals.field_approval_request__account_refund_id
+#: model:ir.model.fields,field_description:account_refund_approvals.field_approval_request__has_account_refund
+msgid "Credit Note"
+msgstr "Nota de Crédito"
+
+#. module: account_refund_approvals
+#: model:ir.model.fields,field_description:account_refund_approvals.field_account_move__is_approved
+msgid "Is Approved"
+msgstr "¿Está Aprobado?"
+
+#. module: account_refund_approvals
+#: model:ir.model,name:account_refund_approvals.model_account_move
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: account_refund_approvals
+#: model:ir.model.fields.selection,name:account_refund_approvals.selection__approval_category__has_account_refund__no
+msgid "None"
+msgstr "Ninguno"
+
+#. module: account_refund_approvals
+#: model:ir.model.fields.selection,name:account_refund_approvals.selection__approval_category__has_account_refund__optional
+msgid "Optional"
+msgstr "Opcional"
+
+#. module: account_refund_approvals
+#: model_terms:ir.ui.view,arch_db:account_refund_approvals.account_view_move_form_approvals_extend
+msgid "Request Approval"
+msgstr "Solicitar Aprobación"
+
+#. module: account_refund_approvals
+#: model:ir.model.fields.selection,name:account_refund_approvals.selection__approval_category__has_account_refund__required
+msgid "Required"
+msgstr "Requerido"
+
+#. module: account_refund_approvals
+#: code:addons/account_refund_approvals/models/account_move.py:0
+#: code:addons/extra-addons/oasis/account_refund_approvals/models/account_move.py:0
+#, python-format
+msgid "There is an approval request approved for this credit note."
+msgstr "Hay una solicitud de aprobación aprobada para esta nota de crédito"
+
+#. module: account_refund_approvals
+#: code:addons/account_refund_approvals/models/account_move.py:0
+#: code:addons/extra-addons/oasis/account_refund_approvals/models/account_move.py:0
+#, python-format
+msgid "There is an approval request ongoing for this credit note."
+msgstr "Hay una solicitud de aprobación en curso para esta nota de crédito"
+
+#. module: account_refund_approvals
+#: code:addons/account_refund_approvals/models/account_move.py:0
+#: code:addons/extra-addons/oasis/account_refund_approvals/models/account_move.py:0
+#, python-format
+msgid "There is an approval request refused for this credit note."
+msgstr "Hay una solicitud de aprobación rechazada para esta nota de crédito"
+
+#. module: account_refund_approvals
+#: code:addons/account_refund_approvals/models/account_move.py:0
+#: code:addons/extra-addons/oasis/account_refund_approvals/models/account_move.py:0
+#, python-format
+msgid ""
+"There is no approval category for this type record. Go to "
+"Approvals/Config/Approval type."
+msgstr ""
+"No hay una categoría para este tipo de registro. Vaya a "
+"Aprobaciones/Configuración/Tipos de aprobación"
