@@ -148,7 +148,9 @@ class BsoftContratoReport2(models.TransientModel):
 
         #rec_ids = self.env['account.move'].search(dominio).ids
         #rec_cursor = self.env['account.move.line.resumen'].search([('fecha_fact','>=',self.date_from),('fecha_fact','<=',self.date_to),('type','in',('in_invoice','in_refund','in_receipt')),('state','=','posted'),])
-        ret_cursor = self.env['account.move'].search([('date','>=',self.date_from),('date','<=',self.date_to),('type','in',('in_invoice','in_refund','in_receipt')),('state','=','posted'),],order="date asc")
+        ret_cursor = self.env['account.move'].search([('date','>=',self.date_from),('date','<=',self.date_to),('company_id','=',self.env.company.id),('type','in',('in_invoice','in_refund','in_receipt')),('state','=','posted'),],order="date asc") # loca 14
+        if not ret_cursor: # loca 14
+            raise UserError(_(' No hay registros de retenciones para esta compañia')) # loca 14
         #_logger.info("\n\n\n {} \n\n\n".format(self.rec_cursor))
         #raise UserError(_(' id retencion:%s')%rec_cursor.vat_ret_id.id) 
 
@@ -156,10 +158,10 @@ class BsoftContratoReport2(models.TransientModel):
         retiva = self.env['vat.retention']
         retiva = str(retiva.name)
 
-        #ruta="C:/Odoo 13.0e/server/odoo/LocalizacionV13/l10n_ve_txt_iva/wizard/txt_generacion.txt"
+        ruta="C:/Odoo 13.0e/server/odoo/LocalizacionV13/l10n_ve_txt_iva/wizard/txt_generacion.txt" #ruta local
         #ruta="/mnt/extra-addons/l10n_ve_txt_iva/wizard/txt_generacion.txt"
         #ruta="/home/odoo/src/user/LocalizacionV13/l10n_ve_txt_iva/wizard/txt_generacion.txt"
-        ruta="/home/odoo/src/txt_generacion.txt"
+        #ruta="/home/odoo/src/txt_generacion.txt" # ruta odoo sh
         #raise UserError(_('mama = %s')%rec.type)
 
         with open(ruta, "w") as file:
