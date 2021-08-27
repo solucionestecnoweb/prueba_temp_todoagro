@@ -1,0 +1,336 @@
+<odoo>
+
+    <record id="paperformat_horizontal" model="report.paperformat">
+        <field name="name">Horizontal predeterminado</field>
+        <field name="orientation">Landscape</field>
+    </record>
+
+    <report
+            id="action_vat_purchase_book"
+            model="purchase.book"
+            string="Purchase Book"
+            report_type="qweb-pdf"
+            name="vat_purchase_book.purchase_book"
+            file="vat_purchase_book.purchase_book"
+            menu="True"
+            paperformat="paperformat_horizontal"
+            />
+
+        <template id="external_layout_purchase_book">
+
+            <div class="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 text-left"><br/>
+                            <b style="font-size:12px; text-align:center;"><t t-esc="o.company_id.name"/></b><br/>
+                            <b style="font-size:12px; text-align:center;"><t t-esc="o.company_id.vat"/></b><br/>
+                            <b style="font-size:12px; text-align:center;">Fiscal address:</b><br/>
+                            <b style="font-size:12px; text-align:center;"><t t-esc="o.company_id.street"/></b><br/>
+                        </div>
+                        <div class="col-6 text-center"><br/>
+                            <b style="font-size:20px;">Purchase Book</b><br/>
+                            <small style="font-size:12px;">From: <t t-esc="o.date_from.strftime('%d/%m/%y')"/> To: <t t-esc="o.date_to.strftime('%d/%m/%y')"/></small><br/>
+                        </div>
+                        <div class="col-3 text-right"><br/>
+                            <b style="font-size:12px; text-align:center;">Page <span class="page" style="font-size:12px;"/> of <span class="topage" style="font-size:12px;"/></b><br/>
+                            <b style="font-size:12px; text-align:center;" t-field="o.date_now"></b><br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard">
+                <t t-raw="0"/>
+            </div>
+
+            <div class="footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    
+                </div>
+            </div>
+        </template>
+
+        <template id="purchase_book">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="vat_purchase_book.external_layout_purchase_book">
+                        
+                        <div class="page">
+                            <br/><br/>
+                            <table class="">
+                                <colgroup>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5,25%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5,5%;"/>
+                                    <col span="1" style="width: 5,5%;"/>
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <td colspan="12"></td>
+                                        <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Non-Credit Purchases</b></td>
+                                        <td colspan="7" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Credit Right Purchases</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="11" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Invoice Identification</b></td>
+                                        <td colspan="1"></td>
+                                        <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Non-Taxed Purchases</b></td>
+                                        <td colspan="3" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Export Purchases</b></td>
+                                        <td colspan="4" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Internal Purchases</b></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Date</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Control Number</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Bill</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Credit N/</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Debit N/</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Doc Number</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Affected Invoice Number</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Transaction Type</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Name - Supplier's Social Reason</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">R.I.F. Number</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Supplier Type</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Total Purchases (Includes VAT)</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Exempt</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Base</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">%</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Tax</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Base</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">%</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Tax</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">VAT Withholding Voucher (Date)</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                    <t t-set="invoices" t-value="o.get_lines()"/>
+                                    
+                                    <t t-set="total_purchases" t-value="0"/>
+                                    <t t-set="total_exempt_purchases" t-value="0"/>
+                                    <t t-set="total_general_tax_base_tax_amount" t-value="0"/>
+                                    <t t-set="total_vat_general_tax" t-value="0"/>
+                                    <t t-set="general_total_base" t-value="0"/>
+                                    <t t-set="general_total_credit" t-value="0"/>
+                                    <t t-set="general_total_withheld" t-value="0"/>
+
+                                <tbody>
+
+                                    <t t-foreach="invoices" t-as="item">
+    
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.date"/></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.invoice_ctrl_number_pro"/></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.invoice_number_pro"/></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.invoice_number_pro"/></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.name"/></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.type_name"/></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.partner_id.name"/></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.partner_id.vat"/></span>
+                                            </td>                                        
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.partner_id.vendor"/></span>
+                                            </td>                                        
+                                            <t t-foreach="item.alicuota_line_ids" t-as="obj">
+                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                    <span style="font-size:12px;"><t t-esc="obj.total_con_iva"/></span>
+                                                </td>
+                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                    <span style="font-size:12px;"><t t-esc="obj.total_exento"/></span>
+                                                </td>
+                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                    <span style="font-size:12px;"></span>
+                                                </td>
+                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                    <span style="font-size:12px;"></span>
+                                                </td>
+                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                    <span style="font-size:12px;"></span>
+                                                </td>
+                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                    <span style="font-size:12px;"><t t-esc="obj.base_general"/></span>
+                                                </td>
+                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                    <span style="font-size:12px;"><t t-esc="obj.tax_id.amount"/></span>
+                                                </td>
+                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                    <span style="font-size:12px;"><t t-esc="obj.alicuota_general"/></span>
+                                                </td>
+                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                    <span style="font-size:12px;"><t t-esc="obj.fecha_comprobante"/></span>
+                                                </td>
+                                                
+                                                <t t-set="total_purchases" t-value="total_purchases + obj.total_con_iva"/>
+                                                <t t-set="total_exempt_purchases" t-value="total_exempt_purchases + obj.total_exento"/>
+                                                <t t-set="total_general_tax_base_tax_amount" t-value="total_general_tax_base_tax_amount + obj.base_general"/>
+                                                <t t-set="total_vat_general_tax" t-value="total_vat_general_tax + obj.alicuota_general"/>                                            
+                                            </t>
+                                        </tr>
+                                    </t>
+                                    <t t-set="general_total_base" t-value="general_total_base + total_exempt_purchases + total_general_tax_base_tax_amount"/>
+                                    <t t-set="general_total_credit" t-value="general_total_credit + total_vat_general_tax"/>
+                                    <t t-set="general_total_withheld" t-value="0"/>
+                                    <tr>
+                                        <td colspan="11" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><span style="font-size:14px;">Total Purchases at: <t t-esc="o.date_to.strftime('%d/%m/%y')"/></span></td>
+                                        <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_purchases"/></span></td>
+                                        <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_exempt_purchases"/></span></td>
+                                        <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"></td>
+                                        <td colspan="1"></td>
+                                        <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"></td>
+                                        <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_general_tax_base_tax_amount"/></span></td>
+                                        <td colspan="1"></td>
+                                        <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_vat_general_tax"/></span></td>
+                                    </tr>
+                                    <br></br>
+                                </tbody>
+                            </table>
+                            <br/><br/>
+                            <table>
+                                <colgroup>
+                                    <col span="1" style="width: 40%;"/>
+                                    <col span="1" style="width: 20%;"/>
+                                    <col span="1" style="width: 20%;"/>
+                                    <col span="1" style="width: 20%;"/>
+                                </colgroup>
+                                <tbody>
+                                <tr>
+                                    <td colspan="1"></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Tax Base</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Fiscal Credit</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">VAT Withheld</b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Total: Exempt purchases and / or without the right to tax credit</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_exempt_purchases"/></span></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of: Import Purchases Affects only General Aliquot</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of: Import Purchases Affected in General Tax Rate + Additional</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of: Import Purchases Affected in Reduced Rate</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of: Purchases Internal Affects only General Tax Rate</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_general_tax_base_tax_amount"/></span></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_vat_general_tax"/></span></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of: Internal Purchases Affected in General Tax Rate + Additional</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of the: Internal Purchases Affected in Reduced Rate</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="1"></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="general_total_base"/></span></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="general_total_credit"/></span></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="general_total_withheld"/></span></td>
+                                </tr>
+                                <br></br>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+</odoo>
