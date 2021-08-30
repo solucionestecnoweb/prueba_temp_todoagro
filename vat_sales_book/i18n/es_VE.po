@@ -1,0 +1,464 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* vat_sales_book
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e-20210510\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-30 04:55+0000\n"
+"PO-Revision-Date: 2021-08-30 04:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid ""
+"<b style=\"font-size:12px;\">Total: Exempt sales and / or without the right "
+"to tax credit</b>"
+msgstr ""
+"<b style=\"font-size:12px;\">Total: Ventas Exentas y/o sin derecho "
+" a crédito fiscal</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid ""
+"<b style=\"font-size:12px;\">Σ of the: Internal Sales Affected in Reduced "
+"Rate</b>"
+msgstr ""
+"<b style=\"font-size:12px;\">Σ de las: Ventas Internas Afectas en Alícuota "
+"Reducida</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid ""
+"<b style=\"font-size:12px;\">Σ of: Import Sales Affected in General Tax Rate"
+" + Additional</b>"
+msgstr ""
+"<b style=\"font-size:12px;\">Σ de: Ventas Importación Afectas en Alícuota General"
+" + Adicional</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid ""
+"<b style=\"font-size:12px;\">Σ of: Import Sales Affected in Reduced Rate</b>"
+msgstr ""
+"<b style=\"font-size:12px;\">Σ de: Ventas Importación Afectas en Alícuota Reducida</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid ""
+"<b style=\"font-size:12px;\">Σ of: Import Sales Affects only General "
+"Aliquot</b>"
+msgstr ""
+"<b style=\"font-size:12px;\">Σ de: Ventas Importación Afectas solo Alícuota "
+"General</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid ""
+"<b style=\"font-size:12px;\">Σ of: Internal Sales Affected in General Tax "
+"Rate + Additional</b>"
+msgstr ""
+"<b style=\"font-size:12px;\">Σ de: Ventas Internas Afectas en Alícuota "
+"General + Adicional</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid ""
+"<b style=\"font-size:12px;\">Σ of: Sales Internal Affects only General Tax "
+"Rate</b>"
+msgstr ""
+"<b style=\"font-size:12px;\">Σ de: Ventas Importación Afectas en Alícuota "
+"Reducida</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<b style=\"font-size:14px;\">Bill</b>"
+msgstr "<b style=\"font-size:14px;\">Factura</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<b style=\"font-size:14px;\">Control</b>"
+msgstr "<b style=\"font-size:14px;\">Control</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<b style=\"font-size:14px;\">Date</b>"
+msgstr "<b style=\"font-size:14px;\">Fecha</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<b style=\"font-size:14px;\">Document</b>"
+msgstr "<b style=\"font-size:14px;\">Documento</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<b style=\"font-size:14px;\">Fiscal Debit</b>"
+msgstr "<b style=\"font-size:14px;\">Débito Fiscal</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<b style=\"font-size:14px;\">Internal Sales</b>"
+msgstr "<b style=\"font-size:14px;\">Ventas Internas</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<b style=\"font-size:14px;\">Invoice Identification</b>"
+msgstr "<b style=\"font-size:14px;\">Identificación de la Factura</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<b style=\"font-size:14px;\">Tax Base</b>"
+msgstr "<b style=\"font-size:14px;\">Impuesto Base</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<b style=\"font-size:14px;\">VAT Withheld</b>"
+msgstr "<b style=\"font-size:14px;\">IVA Retenido</b>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.external_layout_sales_book
+msgid ""
+"<br/>\n"
+"                            <b style=\"font-size:12px; text-align:center;\">Fiscal address:</b><br/>"
+msgstr ""
+"<br/>\n"
+"                            <b style=\"font-size:12px; text-align:center;\">Dirección Fiscal:</b><br/>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.external_layout_sales_book
+msgid ""
+"<br/>\n"
+"                            <b style=\"font-size:12px; text-align:center;\">Page <span class=\"page\" style=\"font-size:12px;\"/> of <span class=\"topage\" style=\"font-size:12px;\"/></b><br/>"
+msgstr ""
+"<br/>\n"
+"                            <b style=\"font-size:12px; text-align:center;\">Página <span class=\"page\" style=\"font-size:12px;\"/> de <span class=\"topage\" style=\"font-size:12px;\"/></b><br/>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.external_layout_sales_book
+msgid ""
+"<br/>\n"
+"                            <b style=\"font-size:20px;\">Sales Book</b><br/>"
+msgstr ""
+"<br/>\n"
+"                            <b style=\"font-size:20px;\">Libro de Ventas</b><br/>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">Affected Invoice Number</span>"
+msgstr "<span style=\"font-size:14px;\">Factura Afectada</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">Base</span>"
+msgstr "<span style=\"font-size:14px;\">Base</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">Credit N/</span>"
+msgstr "<span style=\"font-size:14px;\">N/ Crédito</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">Customer Type</span>"
+msgstr "<span style=\"font-size:14px;\">Tipo de Cliente</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">Debit N/</span>"
+msgstr "<span style=\"font-size:14px;\">N/ Débito</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">Name - Customer's Social Reason</span>"
+msgstr "<span style=\"font-size:14px;\">Nombre - Razón Social del Cliente</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">Non-Taxed Sales</span>"
+msgstr "<span style=\"font-size:14px;\">Ventas No Gravadas</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">R.I.F. Number</span>"
+msgstr "<span style=\"font-size:14px;\">Número de R.I.F.</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">Tax</span>"
+msgstr "<span style=\"font-size:14px;\">Impuesto</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">Total Sales (Includes VAT)</span>"
+msgstr "<span style=\"font-size:14px;\">Ventas Totales (Incluye IVA)</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">Transaction Type</span>"
+msgstr "<span style=\"font-size:14px;\">Tipo de Transacción</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">VAT Withholding Voucher (Date)</span>"
+msgstr "<span style=\"font-size:14px;\">Comprobante de Retención de IVA (Fecha)</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">VAT Withholding Voucher (Number)</span>"
+msgstr "<span style=\"font-size:14px;\">Comprobante de Retención de IVA (Número)</span>"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "<span style=\"font-size:14px;\">VAT Withholding</span>"
+msgstr "<span style=\"font-size:14px;\">IVA Retenido</span>"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Affected Invoice Number"
+msgstr "Factura Afectada"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Base"
+msgstr "Base"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Bill"
+msgstr "Factura"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.wizard_sales_book
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Control"
+msgstr "Control"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Credit N/"
+msgstr "N/ Crédito"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__currency_bs_id
+msgid "Currency Bs"
+msgstr "Moneda Bs"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__currency_usd_id
+msgid "Currency Usd"
+msgstr "Moneda USD"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Date"
+msgstr "Fecha"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__date_from
+msgid "Date From"
+msgstr "Desde"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__date_now
+msgid "Date Now"
+msgstr "Fecha Actual"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__date_to
+msgid "Date To"
+msgstr "Hasta"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Debit N/"
+msgstr "N/ Débito"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Exempt"
+msgstr "Exento"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.wizard_sales_book
+msgid "Export PDF"
+msgstr "Exportar PDF"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.wizard_sales_book
+msgid "Export XLS"
+msgstr "Exportar XLS"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__name
+msgid "File Name"
+msgstr "Nombre del Archivo"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.external_layout_sales_book
+msgid "From:"
+msgstr "Desde:"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__id
+msgid "ID"
+msgstr "ID"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book____last_update
+msgid "Last Modified on"
+msgstr "Última Modificación en"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__write_date
+msgid "Last Updated on"
+msgstr "Última Actualización en"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Name - Customer's Social Reason"
+msgstr "Nombre - Razón Social de Cliente"
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__report
+msgid "Prepared file"
+msgstr "Archivo Preparado"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "R.I.F. Number"
+msgstr "Número de R.I.F."
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#: model:ir.actions.act_window,name:vat_sales_book.action_sales_book
+#: model:ir.actions.report,name:vat_sales_book.action_vat_sales_book
+#: model:ir.ui.menu,name:vat_sales_book.sales_book_menu
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.wizard_sales_book
+#, python-format
+msgid "Sales Book"
+msgstr "Libro de Ventas"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Sales Book "
+msgstr "Libro de Ventas "
+
+#. module: vat_sales_book
+#: model:ir.model.fields,field_description:vat_sales_book.field_sales_book__state
+msgid "State"
+msgstr "Estatus"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Supplier Type"
+msgstr "Tipo de Cliente"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Tax"
+msgstr "Impuesto"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.external_layout_sales_book
+msgid "To:"
+msgstr "Hatsa:"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Total Sales (Includes VAT)"
+msgstr "Ventas Totales (Incluye IVA)"
+
+#. module: vat_sales_book
+#: model_terms:ir.ui.view,arch_db:vat_sales_book.sales_book
+msgid "Total Sales at:"
+msgstr "Ventas Totales al:"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "Transaction Type"
+msgstr "Tipo de Transacción"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "VAT Withholding"
+msgstr "IVA Retenido"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "VAT Withholding Voucher (Date)"
+msgstr "Comprobante de Retención de IVA (Fecha)"
+
+#. module: vat_sales_book
+#: code:addons/vat_sales_book/wizards/wizards_sales_book.py:0
+#, python-format
+msgid "VAT Withholding Voucher (Number)"
+msgstr "Comprobante de Retención de IVA (Número)"
+
+#. module: vat_sales_book
+#: model:ir.model.fields.selection,name:vat_sales_book.selection__sales_book__state__choose
+msgid "choose"
+msgstr ""
+
+#. module: vat_sales_book
+#: model:ir.model.fields.selection,name:vat_sales_book.selection__sales_book__state__get
+msgid "get"
+msgstr ""
+
+#. module: vat_sales_book
+#: model:ir.model,name:vat_sales_book.model_sales_book
+msgid "sales.book"
+msgstr ""
