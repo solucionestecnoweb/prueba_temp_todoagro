@@ -59,34 +59,35 @@
                             <br/><br/>
                             <table class="">
                                 <colgroup>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
-                                    <col span="1" style="width: 5,25%;"/>
                                     <col span="1" style="width: 5%;"/>
-                                    <col span="1" style="width: 5,5%;"/>
-                                    <col span="1" style="width: 5,5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
+                                    <col span="1" style="width: 5%;"/>
                                 </colgroup>
                                 <thead>
                                     <tr>
-                                        <td colspan="12"></td>
+                                        <td colspan="13"></td>
                                         <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Non-Credit Purchases</b></td>
                                         <td colspan="7" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Credit Right Purchases</b></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="11" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Invoice Identification</b></td>
+                                        <td colspan="12" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Invoice Identification</b></td>
                                         <td colspan="1"></td>
                                         <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Non-Taxed Purchases</b></td>
                                         <td colspan="3" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Export Purchases</b></td>
@@ -152,6 +153,9 @@
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
                                             <span style="font-size:14px;">VAT Withholding Voucher (Date)</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">VAT Withholding Voucher (Number)</span>
                                         </th>
                                     </tr>
                                 </thead>
@@ -235,6 +239,9 @@
                                                 </td>
                                                 <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
                                                     <span style="font-size:12px;"><t t-esc="obj.fecha_comprobante"/></span>
+                                                </td>
+                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                    <span style="font-size:12px;"><t t-esc="obj.nro_comprobante"/></span>
                                                 </td>
                                                 
                                                 <t t-set="total_purchases" t-value="total_purchases + obj.total_con_iva"/>

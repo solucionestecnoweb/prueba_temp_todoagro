@@ -125,6 +125,8 @@ class PurchaseBook(models.TransientModel):
         ws1.col(col+18).width = int((len('Tax')+10)*256)
         ws1.write(row,col+19, _("VAT Withholding Voucher (Date)"),sub_header_style_c)
         ws1.col(col+19).width = int((len('VAT Withholding Voucher (Date)')+10)*256)
+        ws1.write(row,col+20, _("VAT Withholding Voucher (Number)"),sub_header_style_c)
+        ws1.col(col+20).width = int((len('VAT Withholding Voucher (Number)')+10)*256)
         center = xlwt.easyxf("align: horiz center")
         right = xlwt.easyxf("align: horiz right")
 
@@ -236,10 +238,15 @@ class PurchaseBook(models.TransientModel):
                 else:
                     ws1.write(row,col+18, '',sub_header_style_r)
                 # VAT Withholding Voucher (Date)
-                if obj.alicuota_general:
+                if obj.total_con_iva:
                     ws1.write(row,col+19, obj.fecha_comprobante,sub_header_style_c)
                 else:
                     ws1.write(row,col+19, '',sub_header_style_c)
+                # VAT Withholding Voucher (Number)
+                if obj.total_con_iva:
+                    ws1.write(row,col+20, obj.nro_comprobante,sub_header_style_c)
+                else:
+                    ws1.write(row,col+20, '',sub_header_style_c)
 
                 total_purchases += obj.total_con_iva
                 total_exempt_purchases += obj.total_exento
