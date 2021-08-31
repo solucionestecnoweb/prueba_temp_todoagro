@@ -1,0 +1,3 @@
+<odoo>
+    <menuitem id="landed_cost_menu" parent="purchase.menu_purchase_products" name="Landed Cost" action="stock_landed_costs.action_stock_landed_cost"/>  
+</odoo>
