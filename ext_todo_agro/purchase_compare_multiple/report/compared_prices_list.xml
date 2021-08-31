@@ -120,7 +120,7 @@
                                                     <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center">
                                                         <span style="font-size:12px;"><t t-esc="item.qty1"/></span>
                                                     </td>
-                                                    <t t-if="item.currency_id1.name == 'Bs.'">
+                                                    <t t-if="item.currency_id1.name in ('Bs.', 'bs.', 'BS.', 'Bs', 'BS', 'bs')">
                                                         <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center">
                                                             <span style="font-size:12px;" t-esc="item.price1" t-options="{'widget': 'monetary', 'display_currency': o.currency_bs}"/>
                                                         </td>
@@ -141,7 +141,7 @@
                                                     <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center">
                                                         <span style="font-size:12px;"><t t-esc="item.qty2"/></span>
                                                     </td>
-                                                    <t t-if="item.currency_id2.name == 'Bs.'">
+                                                    <t t-if="item.currency_id2.name in ('Bs.', 'bs.', 'BS.', 'Bs', 'BS', 'bs')'">
                                                         <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center">
                                                             <span style="font-size:12px;" t-esc="item.price2" t-options="{'widget': 'monetary', 'display_currency': o.currency_bs}"/>
                                                         </td>
@@ -162,7 +162,7 @@
                                                     <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center">
                                                         <span style="font-size:12px;"><t t-esc="item.qty3"/></span>
                                                     </td>
-                                                    <t t-if="item.currency_id3.name == 'Bs.'">
+                                                    <t t-if="item.currency_id3.name in ('Bs.', 'bs.', 'BS.', 'Bs', 'BS', 'bs')'">
                                                         <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center">
                                                             <span style="font-size:12px;" t-esc="item.price3" t-options="{'widget': 'monetary', 'display_currency': o.currency_bs}"/>
                                                         </td>

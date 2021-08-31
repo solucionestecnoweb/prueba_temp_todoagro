@@ -24,8 +24,8 @@ class AccountMoveApproval(models.Model):
                         item.is_approved = False
                 elif len(is_company) > 0:
                     item.is_approved = True
-                elif self.payment_condition_id.name in ('contado', 'Contado', 'CONTADO'):
-                    item.is_approved = True
+                # elif self.payment_condition_id.name in ('contado', 'Contado', 'CONTADO'):
+                #     item.is_approved = True
                 else:
                     item.is_approved = False
                 if item.is_approved:

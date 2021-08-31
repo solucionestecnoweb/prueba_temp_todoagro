@@ -4,7 +4,7 @@
     "author": "Oasis Consultora",
     "website": "https://gregoriocode.com",
     "license": "AGPL-3",
-    "depends": ['base', 'purchase', 'purchase_report_supercauchos'],
+    "depends": ['base', 'purchase', 'supplier_rate'],
     "data": [
         "security/ir.model.access.csv",
         "data/purchase_compare_multiple_data.xml",
