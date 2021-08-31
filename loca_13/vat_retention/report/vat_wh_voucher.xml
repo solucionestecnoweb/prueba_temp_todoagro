@@ -23,7 +23,7 @@
                                                     <b>COMPROBANTE DE RETENCIÓN DEL IMPUESTO AL VALOR AGREGADO</b>
                                                 </p>
                                                 <p style="font-size:8px;text-align:center;">
-                                                    LEY IVA – ART. 11: “SERAN RESPONSABLES DEL PAGO DE IMPUESTO EN CALIDAD DE AGENTES DE RETENCION, LOS COMPRADORES O ADQUIRIENTES DE DETERMINADOS BIENES MUEBLES Y LOS RECEPTORES DE CIERTOS SERVICIOS A QUIENES LA ADMINISTRACION TRIBUTARIA DESIGNE COMO TAL”
+                                                    LEY IVA – ART. 11: “LA ADMINISTRACIÓN TRIBUTARIA PODRÁ DESIGNAR COMO RESPONSABLES DEL PAGO DE IMPUESTO, EN CALIDAD DE AGENTES DE RETENCIÓN, A QUIENES POR SUS FUNCIONES PÚBLICAS O POR RAZÓN DE SUS ACTIVIDADES PRIVADAS INTERVENGAN EN OPERACIONES GRAVADAS CON EL IMPUESTO ESTABLECIDO EN ESTA LEY.”
                                                 </p>
                                             </td>
                                             </tr>
@@ -135,7 +135,7 @@
                             <br/>
                             <div class="row">
                             	<t t-if="o.type in ('in_invoice','in_refund','in_receipt')"  > 
-                                <table width="100%;margin-top:30px;" name="detalle">
+                                <table width="100%;margin-top:30px;">
                                     <tr>
                                         <th style="text-align:center;background-color:#FFFFFF;border:1px solid #000;">
                                             Fecha Factura
