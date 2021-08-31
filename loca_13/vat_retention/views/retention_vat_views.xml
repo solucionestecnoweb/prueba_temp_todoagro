@@ -64,7 +64,7 @@
                         </group>
                         <group name="dates">
                             <!-- Accounting_date is the date when the voucher is created -->
-                            <field name="accouting_date" readonly="False"/> 
+                            <field name="accouting_date"/> 
                             <field name="voucher_delivery_date"/>
                         </group>
                     </group>

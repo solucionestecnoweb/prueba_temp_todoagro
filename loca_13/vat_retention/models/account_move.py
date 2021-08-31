@@ -71,22 +71,13 @@ class AccountMove(models.Model):
 
         if self.type=="in_invoice" or self.type=="in_refund" or self.type=="in_receipt":
             tipo_fact="proveedor"
-            if self.company_id.confg_ret_proveedores=="c":
-                if self.company_id.partner_id.ret_agent:
-                    ban=0
-                    ban=self.verifica_exento_iva()
-                    if ban>0:
-                        self.action_create_vat_retention(tipo_fact)
-                        id_vat_ret=self.vat_ret_id.id
-                        self.actualiza_voucher(id_vat_ret,tipo_fact) #self.asiento_retencion(self.id,id_vat_ret) #funtcion darrell
-            if self.company_id.confg_ret_proveedores=="p":
-                if self.partner_id.ret_agent:
-                    ban=0
-                    ban=self.verifica_exento_iva()
-                    if ban>0:
-                        self.action_create_vat_retention(tipo_fact)
-                        id_vat_ret=self.vat_ret_id.id
-                        self.actualiza_voucher(id_vat_ret,tipo_fact)
+            if self.company_id.partner_id.ret_agent:
+                ban=0
+                ban=self.verifica_exento_iva()
+                if ban>0:
+                    self.action_create_vat_retention(tipo_fact)
+                    id_vat_ret=self.vat_ret_id.id
+                    self.actualiza_voucher(id_vat_ret,tipo_fact) #self.asiento_retencion(self.id,id_vat_ret) #funtcion darrell
 
 
     def funcion_numeracion_fac(self):
@@ -192,7 +183,7 @@ class AccountMove(models.Model):
         vals = {
             'rif': self.rif,
             'partner_id': self.partner_id.id,
-            'accouting_date': self.date, #datetime.now(),
+            'accouting_date': datetime.now(),
             'invoice_number': self.invoice_number,
             'invoice_id': self.id,
             #'amount_untaxed': self.amount_untaxed,
@@ -207,12 +198,7 @@ class AccountMove(models.Model):
             type_tax_use='sale'
 
         if tipo_facttt=="proveedor":
-            if self.company_id.confg_ret_proveedores=="p":
-                #raise UserError(_('proveedor'))
-                por_ret=self.partner_id.vat_retention_rate
-            if self.company_id.confg_ret_proveedores=="c":
-                #raise UserError(_('compañia'))
-                por_ret=self.company_id.partner_id.vat_retention_rate
+            por_ret=self.company_id.partner_id.vat_retention_rate
             type_tax_use='purchase'
 
         #lista_movline = self.env['account.move.line'].search([('move_id','=',self.id)])
@@ -231,7 +217,7 @@ class AccountMove(models.Model):
                 'invoice_id': self.id,
                 'move_id': self.id,
                 'invoice_number': self.invoice_number,
-                'amount_untaxed':self.conv_div_nac(importe_base),
+                'amount_untaxed': self.conv_div_nac(importe_base),
                 'retention_amount':self.conv_div_nac(monto_retenido),
                 'amount_vat_ret':self.conv_div_nac(monto_iva),
                 'retention_rate':por_ret,
@@ -302,18 +288,11 @@ class AccountMove(models.Model):
             cuenta_clien_cobrar=self.partner_id.property_account_receivable_id.id
             cuenta_prove_pagar = self.partner_id.property_account_payable_id.id
         if tipo_factt=="proveedor":
-            if self.company_id.confg_ret_proveedores=="c":
-                porcentaje_ret=self.company_id.partner_id.vat_retention_rate #usar para meterlo en la tabla vat.retention
-                cuenta_ret_cobrar=self.company_id.partner_id.account_ret_receivable_id.id # USAR PARA COMPARAR CON EL CAMPO ACCOUNT_ID DE LA TABLA ACCOUNT_MOVE_LINE
-                cuenta_ret_pagar = self.company_id.partner_id.account_ret_payable_id.id # USAR PARA COMPARAR CON EL CAMPO ACCOUNT_ID DE LA TABLA ACCOUNT_MOVE_LINE
-                cuenta_clien_cobrar=self.company_id.partner_id.property_account_receivable_id.id
-                cuenta_prove_pagar = self.company_id.partner_id.property_account_payable_id.id
-            if self.company_id.confg_ret_proveedores=="p":
-                porcentaje_ret=self.partner_id.vat_retention_rate #usar para meterlo en la tabla vat.retention
-                cuenta_ret_cobrar=self.partner_id.account_ret_receivable_id.id # USAR PARA COMPARAR CON EL CAMPO ACCOUNT_ID DE LA TABLA ACCOUNT_MOVE_LINE
-                cuenta_ret_pagar = self.partner_id.account_ret_payable_id.id # USAR PARA COMPARAR CON EL CAMPO ACCOUNT_ID DE LA TABLA ACCOUNT_MOVE_LINE
-                cuenta_clien_cobrar=self.partner_id.property_account_receivable_id.id
-                cuenta_prove_pagar = self.partner_id.property_account_payable_id.id
+            porcentaje_ret=self.company_id.partner_id.vat_retention_rate #usar para meterlo en la tabla vat.retention
+            cuenta_ret_cobrar=self.company_id.partner_id.account_ret_receivable_id.id # USAR PARA COMPARAR CON EL CAMPO ACCOUNT_ID DE LA TABLA ACCOUNT_MOVE_LINE
+            cuenta_ret_pagar = self.company_id.partner_id.account_ret_payable_id.id # USAR PARA COMPARAR CON EL CAMPO ACCOUNT_ID DE LA TABLA ACCOUNT_MOVE_LINE
+            cuenta_clien_cobrar=self.company_id.partner_id.property_account_receivable_id.id
+            cuenta_prove_pagar = self.company_id.partner_id.property_account_payable_id.id
         #raise UserError(_('id_factura = %s')%id_factura) 
         valor_iva=self.amount_tax # ya este valo ya no me sirve segun la nueva metodologia
         valor_ret=round(float(valor_iva*porcentaje_ret/100),2)
@@ -369,9 +348,9 @@ class AccountMove(models.Model):
         nombre: 'l10n_ve_cuenta_retencion_iva'''
 
         self.ensure_one()
-        SEQUENCE_CODE = 'l10n_ve_nro_factura_cliente'+str(self.company_id.id) #loca 14
-        company_id = self.company_id.id #loca 14
-        IrSequence = self.env['ir.sequence'].with_context(force_company=company_id) #loca 14
+        SEQUENCE_CODE = 'l10n_ve_nro_factura_cliente'
+        company_id = 1
+        IrSequence = self.env['ir.sequence'].with_context(force_company=1)
         name = IrSequence.next_by_code(SEQUENCE_CODE)
 
         # si aún no existe una secuencia para esta empresa, cree una
@@ -383,7 +362,7 @@ class AccountMove(models.Model):
                 'implementation': 'no_gap',
                 'padding': 4,
                 'number_increment': 1,
-                'company_id': company_id, #loca 14
+                'company_id': 1,
             })
             name = IrSequence.next_by_code(SEQUENCE_CODE)
         #self.invoice_number_cli=name
@@ -394,9 +373,9 @@ class AccountMove(models.Model):
         nombre: 'l10n_ve_cuenta_retencion_iva'''
 
         self.ensure_one()
-        SEQUENCE_CODE = 'l10n_ve_nro_control_factura_cliente'+str(self.company_id.id) #loca 14
-        company_id = self.company_id.id #loca 14
-        IrSequence = self.env['ir.sequence'].with_context(force_company=company_id) # loca 14
+        SEQUENCE_CODE = 'l10n_ve_nro_control_factura_cliente'
+        company_id = 1
+        IrSequence = self.env['ir.sequence'].with_context(force_company=1)
         name = IrSequence.next_by_code(SEQUENCE_CODE)
 
         # si aún no existe una secuencia para esta empresa, cree una
@@ -408,7 +387,7 @@ class AccountMove(models.Model):
                 'implementation': 'no_gap',
                 'padding': 4,
                 'number_increment': 1,
-                'company_id': company_id, #loca 14
+                'company_id': 1,
             })
             name = IrSequence.next_by_code(SEQUENCE_CODE)
         #self.invoice_number_cli=name
@@ -419,9 +398,9 @@ class AccountMove(models.Model):
         nombre: 'l10n_ve_cuenta_retencion_iva'''
 
         self.ensure_one()
-        SEQUENCE_CODE = 'l10n_ve_nro_factura_nota_credito_cliente'+str(self.company_id.id) #loca 14
-        company_id = self.company_id.id # loca 14
-        IrSequence = self.env['ir.sequence'].with_context(force_company=company_id) # loca 14
+        SEQUENCE_CODE = 'l10n_ve_nro_factura_nota_credito_cliente'
+        company_id = 1
+        IrSequence = self.env['ir.sequence'].with_context(force_company=1)
         name = IrSequence.next_by_code(SEQUENCE_CODE)
 
         # si aún no existe una secuencia para esta empresa, cree una
@@ -433,7 +412,7 @@ class AccountMove(models.Model):
                 'implementation': 'no_gap',
                 'padding': 4,
                 'number_increment': 1,
-                'company_id': company_id, # loca 14
+                'company_id': 1,
             })
             name = IrSequence.next_by_code(SEQUENCE_CODE)
         #self.refuld_number_cli=name
@@ -444,9 +423,9 @@ class AccountMove(models.Model):
         nombre: 'l10n_ve_cuenta_retencion_iva'''
 
         self.ensure_one()
-        SEQUENCE_CODE = 'l10n_ve_nro_control_nota_credito_cliente'+str(self.company_id.id) #loca 14
-        company_id = self.company_id.id #loca 14
-        IrSequence = self.env['ir.sequence'].with_context(force_company=company_id) #loca 14
+        SEQUENCE_CODE = 'l10n_ve_nro_control_nota_credito_cliente'
+        company_id = 1
+        IrSequence = self.env['ir.sequence'].with_context(force_company=1)
         name = IrSequence.next_by_code(SEQUENCE_CODE)
 
         # si aún no existe una secuencia para esta empresa, cree una
@@ -458,7 +437,7 @@ class AccountMove(models.Model):
                 'implementation': 'no_gap',
                 'padding': 4,
                 'number_increment': 1,
-                'company_id': company_id, #loca 14
+                'company_id': 1,
             })
             name = IrSequence.next_by_code(SEQUENCE_CODE)
         #self.refuld_number_cli=name
@@ -469,9 +448,9 @@ class AccountMove(models.Model):
         nombre: 'l10n_ve_cuenta_retencion_iva'''
 
         self.ensure_one()
-        SEQUENCE_CODE = 'l10n_ve_nro_factura_nota_debito_cliente'+str(self.company_id.id) #loca 14
-        company_id = self.company_id.id #loca14
-        IrSequence = self.env['ir.sequence'].with_context(force_company=company_id) #loca 14
+        SEQUENCE_CODE = 'l10n_ve_nro_factura_nota_debito_cliente'
+        company_id = 1
+        IrSequence = self.env['ir.sequence'].with_context(force_company=1)
         name = IrSequence.next_by_code(SEQUENCE_CODE)
 
         # si aún no existe una secuencia para esta empresa, cree una
@@ -483,7 +462,7 @@ class AccountMove(models.Model):
                 'implementation': 'no_gap',
                 'padding': 4,
                 'number_increment': 1,
-                'company_id': company_id, #loca 14
+                'company_id': 1,
             })
             name = IrSequence.next_by_code(SEQUENCE_CODE)
         #self.refuld_number_pro=name
@@ -494,9 +473,9 @@ class AccountMove(models.Model):
         nombre: 'l10n_ve_cuenta_retencion_iva'''
 
         self.ensure_one()
-        SEQUENCE_CODE = 'l10n_ve_nro_control_nota_debito_cliente'+str(self.company_id.id) #loca 14
-        company_id = self.company_id.id #loca 14
-        IrSequence = self.env['ir.sequence'].with_context(force_company=company_id) #loca 14
+        SEQUENCE_CODE = 'l10n_ve_nro_control_nota_debito_cliente'
+        company_id = 1
+        IrSequence = self.env['ir.sequence'].with_context(force_company=1)
         name = IrSequence.next_by_code(SEQUENCE_CODE)
 
         # si aún no existe una secuencia para esta empresa, cree una
@@ -508,7 +487,7 @@ class AccountMove(models.Model):
                 'implementation': 'no_gap',
                 'padding': 4,
                 'number_increment': 1,
-                'company_id': company_id, # loca 14
+                'company_id': 1,
             })
             name = IrSequence.next_by_code(SEQUENCE_CODE)
         #self.refuld_number_pro=name

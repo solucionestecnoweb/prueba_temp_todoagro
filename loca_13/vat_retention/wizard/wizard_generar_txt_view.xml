@@ -42,12 +42,12 @@
 
         <!-- SUB-MENU-->
 
-        <!--menuitem
+        <menuitem
             id="menu_snc_declaracion_retiva"
             name="Declaración Retención IVA"
             parent="account.menu_action_account_invoice_report_all"
             action="action_declaracion_retiva_form"
-        /-->
+        />
 
 	</data>
 </odoo>

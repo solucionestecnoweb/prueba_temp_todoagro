@@ -133,11 +133,11 @@ class RetentionVat(models.Model):
     journal_id=fields.Char(string='journal_id')
     move_id = fields.Many2one('account.move', string='Id del movimiento')
 
-    """def unlink(self):
+    def unlink(self):
         for vat in self:
             if vat.state=='posted':
                 raise UserError(_("El comprobante de retencion IVA ya esta Publicado, No se puede eliminar"))
-        return super(RetentionVat,self).unlink() """     
+        return super(RetentionVat,self).unlink()      
 
     def formato_fecha2(self):
         fecha = str(self.voucher_delivery_date)
@@ -369,7 +369,7 @@ class RetentionVat(models.Model):
         
         moves= self.env['account.move'].search([('id','=',idv_move)])
         moves.filtered(lambda move: move.journal_id.post_at != 'bank_rec').post()
-        ##self.concilio_saldo_pendiente()
+        #self.concilio_saldo_pendiente()
         
 
     def action_draft(self):
@@ -502,12 +502,8 @@ class RetentionVat(models.Model):
             id_journal=self.partner_id.ret_jrl_id.id
             rate_valor=self.partner_id.vat_retention_rate
         if self.type=="in_invoice" or self.type=="in_refund" or self.type=="in_receipt":
-            if self.env.company.confg_ret_proveedores=="c":#loca14
-                id_journal=self.env.company.partner_id.ret_jrl_id.id#loca14
-                rate_valor=self.env.company.partner_id.vat_retention_rate#loca14
-            if self.env.company.confg_ret_proveedores=="p":#loca14
-                id_journal=self.partner_id.ret_jrl_id.id
-                rate_valor=self.partner_id.vat_retention_rate
+            id_journal=self.company_id.partner_id.ret_jrl_id.id
+            rate_valor=self.company_id.partner_id.vat_retention_rate
         #raise UserError(_('papa = %s')%signed_amount_total)
         value = {
             'name': name,
@@ -520,7 +516,6 @@ class RetentionVat(models.Model):
             #'amount_total_signed':signed_amount_total,# LISTO
             'type': "entry",# estte campo es el que te deja cambiar y almacenar valores
             'vat_ret_id': self.id,
-            'company_id':self.env.company.id,#loca14
             #'currency_id':self.invoice_id.currency_id.id,
         }
         #raise UserError(_('value= %s')%value)
@@ -542,18 +537,11 @@ class RetentionVat(models.Model):
             cuenta_prove_pagar = self.partner_id.property_account_payable_id.id
             rate_valor=self.partner_id.vat_retention_rate
         if self.type=="in_invoice" or self.type=="in_refund" or self.type=="in_receipt":
-            if self.env.company.confg_ret_proveedores=="c":#loca14
-                cuenta_ret_cliente=self.env.company.partner_id.account_ret_receivable_id.id# loca14 cuenta retencion cliente
-                cuenta_ret_proveedor=self.env.company.partner_id.account_ret_payable_id.id# loca14 cuenta retencion proveedores
-                cuenta_clien_cobrar=self.env.company.partner_id.property_account_receivable_id.id #loca14
-                cuenta_prove_pagar = self.env.company.partner_id.property_account_payable_id.id #loca14
-                rate_valor=self.env.company.partner_id.vat_retention_rate #loca14
-            if self.env.company.confg_ret_proveedores=="p": #loca14
-                cuenta_ret_cliente=self.partner_id.account_ret_receivable_id.id# cuenta retencion cliente
-                cuenta_ret_proveedor=self.partner_id.account_ret_payable_id.id#cuenta retencion proveedores
-                cuenta_clien_cobrar=self.partner_id.property_account_receivable_id.id
-                cuenta_prove_pagar = self.partner_id.property_account_payable_id.id
-                rate_valor=self.partner_id.vat_retention_rate
+            cuenta_ret_cliente=self.company_id.partner_id.account_ret_receivable_id.id# cuenta retencion cliente
+            cuenta_ret_proveedor=self.company_id.partner_id.account_ret_payable_id.id#cuenta retencion proveedores
+            cuenta_clien_cobrar=self.company_id.partner_id.property_account_receivable_id.id
+            cuenta_prove_pagar = self.company_id.partner_id.property_account_payable_id.id
+            rate_valor=self.company_id.partner_id.vat_retention_rate
 
         tipo_empresa=self.move_id.type
         #raise UserError(_('papa = %s')%tipo_empresa)
@@ -655,7 +643,7 @@ class RetentionVat(models.Model):
                 'implementation': 'no_gap',
                 'padding': 8,
                 'number_increment': 1,
-                'company_id': self.env.company.id,#loca14
+                'company_id': 1,
             })
             name = IrSequence.next_by_code(SEQUENCE_CODE)
         return name

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- product.template inherit form view -->
+    <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="name">product.template.inherit.view.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Add your xpath here -->
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="municipal_wh_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- product.category inherit form view -->
+    <record id="product_category_form_view" model="ir.ui.view">
+        <field name="name">product.category.inherit.view.form</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Add your xpath here -->
+            <xpath expr="//group[@name='account_property']" position="before">
+                <group>
+                    <group name="municipal_wh" string="Municipal Withhold">
+                        <field name="municipal_wh_id"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
