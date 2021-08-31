@@ -24,7 +24,7 @@
     'data': [
         'security/ir.model.access.csv',
         'view/account_move_view.xml',
-        #'view/comprobantes.xml',
+        'view/account_account_view.xml',
     ],
     'application': True,
 }

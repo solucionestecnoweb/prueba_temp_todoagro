@@ -35,6 +35,7 @@ class ResumenAlicuota(models.Model):
     tax_id = fields.Many2one('account.tax', string='Tipo de Impuesto')
     total_valor_iva = fields.Float(string='Total IVA')
 
+
     porcentaje_ret = fields.Float(string='Porcentaje de Retencion IVA')
     total_ret_iva = fields.Float(string='Total IVA Retenido')    
     vat_ret_id = fields.Many2one('vat.retention', string='Nro de Comprobante IVA')
@@ -42,6 +43,9 @@ class ResumenAlicuota(models.Model):
     tipo_doc = fields.Char()
     fecha_fact= fields.Date()
     fecha_comprobante= fields.Date()
+    company_id = fields.Many2one('res.company', string='Company',default=lambda self: self.env.company.id)#loca14
+    total_valor_iva_nd = fields.Float(string='Total IVA no Deducible') #loca14
+    total_base_nd = fields.Float(string='Total Base No deducible') # loca14
 
 
     def _nro_comp(self):
@@ -85,8 +89,10 @@ class AccountMove(models.Model):
                 lista_impuesto = det_m.env['account.tax'].search([('type_tax_use','=',type_tax_use)])
                 #('aliquot','not in',('general','exempt')
                 base=0
+                base_nd=0 # loca14
                 total=0
                 total_impuesto=0
+                total_impuesto_nd=0 # loca14
                 total_exento=0
                 alicuota_adicional=0
                 alicuota_reducida=0
@@ -170,6 +176,9 @@ class AccountMove(models.Model):
                 'retenido_general':retenido_general,
                 'retenido_reducida':retenido_reducida,
                 'retenido_adicional':retenido_adicional,
+                'company_id':det_m.company_id.id,#loca14
+                #'total_valor_iva_nd':,
+                #'total_base_nd':,
                 }
                 det_m.env['account.move.line.resumen'].create(values)
 
@@ -201,8 +210,10 @@ class AccountMove(models.Model):
             lista_impuesto = self.env['account.tax'].search([('type_tax_use','=',type_tax_use)])
             #('aliquot','not in',('general','exempt')
             base=0
+            base_nd=0 #loca 14
             total=0
             total_impuesto=0
+            total_impuesto_nd=0 # loca 14
             total_exento=0
             alicuota_adicional=0
             alicuota_reducida=0
@@ -224,10 +235,20 @@ class AccountMove(models.Model):
                 if det_lin:
                     for det_fac in det_lin:#USAR AQUI ACOMULADORES
                         if self.state!="cancel":
-                            base=base+det_fac.price_subtotal
+                            # aqui inicio loca 14
+                            if det_fac.account_id.prorreatable==False:
+                                if det_fac.account_id.group_id.prorreatable==False:
+                                    base=base+det_fac.price_subtotal
+                                    total_impuesto=total_impuesto+(det_fac.price_total-det_fac.price_subtotal)
+                                else:
+                                    base_nd=base_nd+det_fac.price_subtotal
+                                    total_impuesto_nd=total_impuesto_nd+(det_fac.price_total-det_fac.price_subtotal)
+                            if det_fac.account_id.prorreatable==True:
+                                base_nd=base_nd+det_fac.price_subtotal
+                                total_impuesto_nd=total_impuesto_nd+(det_fac.price_total-det_fac.price_subtotal)
                             total=total+det_fac.price_total
                             id_impuesto=det_fac.tax_ids.id
-                            total_impuesto=total_impuesto+(det_fac.price_total-det_fac.price_subtotal)
+                            # aqui fin loca 14
                             if tipo_alicuota=="general":
                                 alicuota_general=alicuota_general+(det_fac.price_total-det_fac.price_subtotal)
                                 base_general=base_general+det_fac.price_subtotal
@@ -287,6 +308,9 @@ class AccountMove(models.Model):
             'retenido_general':retenido_general,
             'retenido_reducida':retenido_reducida,
             'retenido_adicional':retenido_adicional,
+            'company_id':self.company_id.id,#loca14
+            'total_valor_iva_nd':total_impuesto_nd,
+            'total_base_nd':base_nd,
             }
             self.env['account.move.line.resumen'].create(values)
 

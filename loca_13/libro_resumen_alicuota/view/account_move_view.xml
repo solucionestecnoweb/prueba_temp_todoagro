@@ -17,6 +17,7 @@
                         <!--field name="tax_id"/-->
                         <field name="total_con_iva" sum="total_con_iva"/>
                         <field name="total_base" sum="total_base"/>
+                        <field name="total_base_nd" string="Total Base ND" sum="total_base_nd"/>
 
                         <field name="total_exento"/>
                         <field name="alicuota_general"/>
@@ -25,6 +26,7 @@
 
 
                         <field name="total_valor_iva" sum="total_valor_iva"/>
+                        <field name="total_valor_iva_nd" string="Total IVA ND" sum="total_valor_iva_nd"/>
                         <field name="porcentaje_ret"/>
                         <field name="total_ret_iva" sum="total_ret_iva"/>
                         <field name="nro_comprobante"/>

@@ -18,7 +18,7 @@
 
     # always loaded
     'data': ['vista/res_company_view.xml',
-    #'security/ir.model.access.csv',
+    'security/ir.model.access.csv',
     'vista/res_partner_view.xml',
     'vista/account_payment_view.xml',
     'vista/account_move_view.xml',
