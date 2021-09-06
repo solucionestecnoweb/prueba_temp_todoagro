@@ -2,7 +2,7 @@
 
     <data noupdate="0">
         <record id="wizard_purchase_book" model="ir.ui.view">
-            <field name="name">Purchase Book Report Wizard</field>
+            <field name="name">Reporte de Libro de Compras Wizard</field>
             <field name="model">purchase.book</field>
             <field name="arch" type="xml">
                 <form string="Purchase Book">
@@ -24,9 +24,9 @@
                         </group>
                     </div>
                     <footer states="choose">
-                        <button name="generate_xls_report" string="Export XLS" type="object" class="oe_highlight" />
-                        <button name="print_report" string="Export PDF" type="object" class="oe_highlight" />
-                        <button special="cancel" string="Cancel" class="oe_highlight" />
+                        <button name="generate_xls_report" string="Exportar XLS" type="object" class="oe_highlight" />
+                        <button name="print_report" string="Exportar PDF" type="object" class="oe_highlight" />
+                        <button special="cancel" string="Cancelar" class="oe_highlight" />
                     </footer>
                     <footer states="get">
                         <button special="cancel" string="Cancel" class="oe_highlight" />
@@ -35,14 +35,14 @@
             </field>
         </record>
         <record id="action_purchase_book" model="ir.actions.act_window">
-            <field name="name">Purchase Book</field>
+            <field name="name">Libro de Compras</field>
             <field name="res_model">purchase.book</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="wizard_purchase_book"/>
             <field name="target">new</field>
         </record>
 
-        <menuitem   name="Purchase Book" 
+        <menuitem   name="Libro de Compras" 
                     parent="account.menu_finance_reports"
                     id="purchase_book_menu" 
                     action="vat_purchase_book.action_purchase_book"
