@@ -2,7 +2,7 @@
 
     <data noupdate="0">
         <record id="wizard_sales_book" model="ir.ui.view">
-            <field name="name">Sales Book Report Wizard</field>
+            <field name="name">Reporte Libro de Ventas Wizard</field>
             <field name="model">sales.book</field>
             <field name="arch" type="xml">
                 <form string="Sales Book">
@@ -24,25 +24,25 @@
                         </group>
                     </div>
                     <footer states="choose">
-                        <button name="generate_xls_report" string="Export XLS" type="object" class="oe_highlight" />
-                        <button name="print_report" string="Export PDF" type="object" class="oe_highlight" />
-                        <button special="cancel" string="Cancel" class="oe_highlight" />
+                        <button name="generate_xls_report" string="Exportar XLS" type="object" class="oe_highlight" />
+                        <button name="print_report" string="Exportar PDF" type="object" class="oe_highlight" />
+                        <button special="cancel" string="Cancelar" class="oe_highlight" />
                     </footer>
                     <footer states="get">
-                        <button special="cancel" string="Cancel" class="oe_highlight" />
+                        <button special="cancel" string="Cancelar" class="oe_highlight" />
                     </footer>
                 </form>
             </field>
         </record>
         <record id="action_sales_book" model="ir.actions.act_window">
-            <field name="name">Sales Book</field>
+            <field name="name">Libro de Ventas</field>
             <field name="res_model">sales.book</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="wizard_sales_book"/>
             <field name="target">new</field>
         </record>
 
-        <menuitem   name="Sales Book" 
+        <menuitem   name="Libro de Ventas" 
                     parent="account.menu_finance_reports"
                     id="sales_book_menu" 
                     action="vat_sales_book.action_sales_book"

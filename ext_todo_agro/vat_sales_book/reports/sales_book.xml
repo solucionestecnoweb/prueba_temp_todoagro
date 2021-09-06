@@ -8,7 +8,7 @@
     <report
             id="action_vat_sales_book"
             model="sales.book"
-            string="Sales Book"
+            string="Reporte de Ventas"
             report_type="qweb-pdf"
             name="vat_sales_book.sales_book"
             file="vat_salesz_book.sales_book"
@@ -24,15 +24,15 @@
                         <div class="col-3 text-left"><br/>
                             <b style="font-size:12px; text-align:center;"><t t-esc="o.company_id.name"/></b><br/>
                             <b style="font-size:12px; text-align:center;"><t t-esc="o.company_id.vat"/></b><br/>
-                            <b style="font-size:12px; text-align:center;">Fiscal address:</b><br/>
+                            <b style="font-size:12px; text-align:center;">Dirección Fiscal:</b><br/>
                             <b style="font-size:12px; text-align:center;"><t t-esc="o.company_id.street"/></b><br/>
                         </div>
                         <div class="col-6 text-center"><br/>
-                            <b style="font-size:20px;">Sales Book</b><br/>
-                            <small style="font-size:12px;">From: <t t-esc="o.date_from.strftime('%d/%m/%y')"/> To: <t t-esc="o.date_to.strftime('%d/%m/%y')"/></small><br/>
+                            <b style="font-size:20px;">Libro de Ventas</b><br/>
+                            <small style="font-size:12px;">Desde: <t t-esc="o.date_from.strftime('%d/%m/%y')"/> Hasta: <t t-esc="o.date_to.strftime('%d/%m/%y')"/></small><br/>
                         </div>
                         <div class="col-3 text-right"><br/>
-                            <b style="font-size:12px; text-align:center;">Page <span class="page" style="font-size:12px;"/> of <span class="topage" style="font-size:12px;"/></b><br/>
+                            <b style="font-size:12px; text-align:center;">Página <span class="page" style="font-size:12px;"/> of <span class="topage" style="font-size:12px;"/></b><br/>
                             <b style="font-size:12px; text-align:center;" t-field="o.date_now"></b><br/>
                         </div>
                     </div>
@@ -82,62 +82,58 @@
                                 </colgroup>
                                 <thead>
                                     <tr>
-                                        <td colspan="9" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Invoice Identification</b></td>
+                                        <td colspan="9" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Identificación de la Factura</b></td>
                                         <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
                                         <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
                                         <td colspan="3" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
                                         <td colspan="3" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
-                                        <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
-                                        <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
-                                        <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
+                                        <td colspan="3"></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Date</b></td>
+                                        <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Fecha</b></td>
                                         <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Control</b></td>
-                                        <td colspan="4" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Document</b></td>
+                                        <td colspan="4" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Documento</b></td>
                                         <td colspan="3" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
                                         <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
                                         <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
                                         <td colspan="3" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
-                                        <td colspan="3" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Internal Sales</b></td>
-                                        <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
-                                        <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
-                                        <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"></td>
+                                        <td colspan="3" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Ventas Internas</b></td>
+                                        <td colspan="3"></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Bill</b></td>
+                                        <td colspan="3" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Factura</b></td>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Credit N/</span>
+                                            <span style="font-size:14px;">N/ Crédito</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Debit N/</span>
+                                            <span style="font-size:14px;">N/ Débito</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Affected Invoice Number</span>
+                                            <span style="font-size:14px;">Factura Afectada</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Transaction Type</span>
+                                            <span style="font-size:14px;">Tipo Reg.</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Name - Customer's Social Reason</span>
+                                            <span style="font-size:14px;">Nombre - Razón Social del Proveedor</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">R.I.F. Number</span>
+                                            <span style="font-size:14px;">R.I.F. Nro</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Customer Type</span>
+                                            <span style="font-size:14px;">Tipo Per.</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Total Sales (Includes VAT)</span>
+                                            <span style="font-size:14px;">Total Ventas (Incluye I.V.A.)</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Non-Taxed Sales</span>
+                                            <span style="font-size:14px;">Ventas No Gravadas</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
                                             <span style="font-size:14px;">%</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Tax</span>
+                                            <span style="font-size:14px;">Impuesto</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
                                             <span style="font-size:14px;">Base</span>
@@ -146,16 +142,16 @@
                                             <span style="font-size:14px;">%</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Tax</span>
+                                            <span style="font-size:14px;">Impuesto</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">VAT Withholding</span>
+                                            <span style="font-size:14px;">Retención de I.V.A.</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">VAT Withholding Voucher (Date)</span>
+                                            <span style="font-size:14px;">Nro. Comprobante</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">VAT Withholding Voucher (Number)</span>
+                                            <span style="font-size:14px;">Fecha del Comprobante</span>
                                         </th>
                                     </tr>
                                 </thead>
@@ -184,22 +180,61 @@
                                                 <span style="font-size:12px;"><t t-esc="item.date"/></span>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
-                                                <span style="font-size:12px;"><t t-esc="item.invoice_ctrl_number_cli"/></span>
+                                                <t t-if="item.type == 'out_invoice'">
+                                                    <span style="font-size:12px;"><t t-esc="item.invoice_ctrl_number_cli"/></span>
+                                                </t>
+                                                <t t-if="item.type == 'out_refund'">
+                                                    <span style="font-size:12px;"><t t-esc="item.refund_ctrl_number_cli"/></span>
+                                                </t>
+                                                <t t-if="item.type == 'out_receipt'">
+                                                    <span style="font-size:12px;"><t t-esc="item.refund_ctrl_number_cli"/></span>
+                                                </t>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
-                                                <span style="font-size:12px;"><t t-esc="item.invoice_number_cli"/></span>
+                                                <t t-if="item.type == 'out_invoice'">
+                                                    <span style="font-size:12px;"><t t-esc="item.invoice_number_cli"/></span>
+                                                </t>
+                                                <t t-if="item.type == 'out_refund'">
+                                                    <span style="font-size:12px;"><t t-esc="item.refuld_number_cli"/></span>
+                                                </t>
+                                                <t t-if="item.type == 'out_receipt'">
+                                                    <span style="font-size:12px;"><t t-esc="item.refuld_number_cli"/></span>
+                                                </t>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
-                                                <span style="font-size:12px;"></span>
+                                                <t t-if="item.type == 'out_refund'">
+                                                    <span style="font-size:12px;"><t t-esc="item.name"/></span>
+                                                </t>
+                                                <t t-if="item.type in ('out_invoice', 'out_receipt')">
+                                                    <span style="font-size:12px;"></span>
+                                                </t>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
-                                                <span style="font-size:12px;"></span>
+                                                <t t-if="item.type == 'out_receipt'">
+                                                    <span style="font-size:12px;"><t t-esc="item.name"/></span>
+                                                </t>
+                                                <t t-if="item.type in ('out_invoice', 'out_refund')">
+                                                    <span style="font-size:12px;"></span>
+                                                </t>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
-                                                <span style="font-size:12px;"><t t-esc="item.name"/></span>
+                                                <t t-if="item.type in ('out_refund', 'out_receipt')">
+                                                    <span style="font-size:12px;"><t t-esc="item.ref"/></span>
+                                                </t>
+                                                <t t-if="item.type == 'out_invoice'">
+                                                    <span style="font-size:12px;"></span>
+                                                </t>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
-                                                <span style="font-size:12px;"><t t-esc="item.type_name"/></span>
+                                                <t t-if="item.type == 'out_invoice'">
+                                                    <span style="font-size:12px;">01-Reg</span>
+                                                </t>
+                                                <t t-if="item.type == 'out_refund'">
+                                                    <span style="font-size:12px;">02-Reg</span>
+                                                </t>
+                                                <t t-if="item.type == 'out_receipt'">
+                                                    <span style="font-size:12px;">03-Reg</span>
+                                                </t>
                                             </td>
                                             <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
                                                 <span style="font-size:12px;"><t t-esc="item.partner_id.name"/></span>
@@ -208,7 +243,18 @@
                                                 <span style="font-size:12px;"><t t-esc="item.partner_id.vat"/></span>
                                             </td>                                        
                                             <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
-                                                <span style="font-size:12px;"><t t-esc="item.partner_id.vendor"/></span>
+                                                <t t-if="item.partner_id.people_type == 'resident_nat_people'">
+                                                    <span style="font-size:12px;">PNRE</span>
+                                                </t>
+                                                <t t-if="item.partner_id.people_type == 'non_resit_nat_people'">
+                                                    <span style="font-size:12px;">PNNR</span>
+                                                </t>
+                                                <t t-if="item.partner_id.people_type == 'domi_ledal_entity'">
+                                                    <span style="font-size:12px;">PJDO</span>
+                                                </t>
+                                                <t t-if="item.partner_id.people_type == 'legal_ent_not_domicilied'">
+                                                    <span style="font-size:12px;">PJND</span>
+                                                </t>
                                             </td>                                        
                                             <t t-foreach="item.alicuota_line_ids" t-as="obj">
                                                 <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
@@ -235,12 +281,14 @@
                                                 <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
                                                     <span style="font-size:12px;"><t t-esc="obj.total_ret_iva"/></span>
                                                 </td>
-                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
-                                                    <span style="font-size:12px;"><t t-esc="obj.fecha_comprobante"/></span>
-                                                </td>
-                                                <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
-                                                    <span style="font-size:12px;"><t t-esc="obj.nro_comprobante"/></span>
-                                                </td>
+                                                <t t-foreach="obj.vat_ret_id" t-as="vat">
+                                                    <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                        <span style="font-size:12px;"><t t-esc="vat.name"/></span>
+                                                    </td>
+                                                    <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                        <span style="font-size:12px;"><t t-esc="vat.voucher_delivery_date"/></span>
+                                                    </td>
+                                                </t>
                                                 
                                                 <t t-set="total_sales" t-value="total_sales + obj.total_con_iva"/>
                                                 <t t-set="total_exempt_sales" t-value="total_exempt_sales + obj.total_exento"/>
@@ -254,7 +302,7 @@
                                     <t t-set="general_total_credit" t-value="general_total_credit + total_vat_general_tax"/>
                                     <t t-set="general_total_withheld" t-value="general_total_withheld + total_withheld"/>
                                     <tr>
-                                        <td colspan="10" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><span style="font-size:14px;">Total Sales at: <t t-esc="o.date_to.strftime('%d/%m/%y')"/></span></td>
+                                        <td colspan="10" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><span style="font-size:14px;">Total Ventas al: <t t-esc="o.date_to.strftime('%d/%m/%y')"/></span></td>
                                         <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_sales"/></span></td>
                                         <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_exempt_sales"/></span></td>
                                         <td style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"></td>
@@ -279,56 +327,47 @@
                                 <tbody>
                                 <tr>
                                     <td colspan="1"></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Tax Base</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Fiscal Debit</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">VAT Withheld</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Débito Fiscal</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Retención de I.V.A.</b></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Total: Exempt sales and / or without the right to tax credit</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_exempt_sales"/></span></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of: Import Sales Affects only General Aliquot</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Total: Ventas Exentas y/o sin derecho a crédito fiscal</b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of: Import Sales Affected in General Tax Rate + Additional</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of: Import Sales Affected in Reduced Rate</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Ventas Importación Afectas sólo Alícuota General</b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of: Sales Internal Affects only General Tax Rate</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_general_tax_base_tax_amount"/></span></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Ventas Importación Afectas en Alícuota General + Adicional</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Ventas Importación Afectas en Alícuota Reducida</b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Ventas Internas Afectas sólo Alícuota General</b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_vat_general_tax"/></span></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of: Internal Sales Affected in General Tax Rate + Additional</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Ventas Internas Afectas en Alícuota General + Adicional</b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ of the: Internal Sales Affected in Reduced Rate</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
+                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Ventas Internas Afectas en Alícuota Reducida</b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="1"></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="general_total_base"/></span></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="general_total_credit"/></span></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="general_total_withheld"/></span></td>
                                 </tr>
