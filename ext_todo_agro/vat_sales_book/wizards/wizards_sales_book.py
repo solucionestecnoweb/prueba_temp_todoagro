@@ -39,7 +39,7 @@ class SalesBook(models.TransientModel):
             }
 
     def get_lines(self):
-        xfind = self.env['account.move'].search([('type', 'in', ('out_invoice', 'out_refund', 'out_receipt')), ('date', '>=', self.date_from), ('date', '<=', self.date_to), ('state', '=', 'posted'), ('invoice_payment_state', '=', 'paid')])
+        xfind = self.env['account.move'].search([('type', 'in', ('out_invoice', 'out_refund', 'out_receipt')), ('date', '>=', self.date_from), ('date', '<=', self.date_to), ('state', '=', 'posted')])
         return xfind
     
         # *******************  REPORTE EN EXCEL ****************************

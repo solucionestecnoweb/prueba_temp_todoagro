@@ -1,5 +1,5 @@
 {
-    "name":"Libro de Compras I.V.A",
+    "name":"Libro de Compras",
     "description":"Añade la función de Libro de Compras.",
     "author":"Oasis Consultora",
     "depends":['account', 'account_accountant'],
