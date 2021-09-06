@@ -29,7 +29,7 @@
                         <button special="cancel" string="Cancelar" class="oe_highlight" />
                     </footer>
                     <footer states="get">
-                        <button special="cancel" string="Cancel" class="oe_highlight" />
+                        <button special="cancel" string="Cancelar" class="oe_highlight" />
                     </footer>
                 </form>
             </field>

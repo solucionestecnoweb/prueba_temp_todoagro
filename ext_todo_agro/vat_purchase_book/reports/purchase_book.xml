@@ -125,7 +125,7 @@
                                             <span style="font-size:14px;">Tipo Per.</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
-                                            <span style="font-size:14px;">Total Compras (Incluya I.V.A.)</span>
+                                            <span style="font-size:14px;">Total Compras (Incluye I.V.A.)</span>
                                         </th>
                                         <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
                                             <span style="font-size:14px;">Exento</span>
@@ -325,13 +325,11 @@
                                 <tbody>
                                 <tr>
                                     <td colspan="1"></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Base Imponible</b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Crédito Fiscal</b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-center border border-dark"><b style="font-size:14px;">Retención de I.V.A.</b></td>
                                 </tr>
                                 <tr>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Total: Compras Exentas y/o sin derecho a crédito fiscal</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_exempt_purchases"/></span></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
@@ -339,11 +337,9 @@
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Compras Importación Afectas sólo Alícuota General</b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
                                 <tr>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Compras Importación Afectas en Alícuota General + Adicional</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
@@ -351,11 +347,9 @@
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Compras Importación Afectas en Alícuota Reducida</b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
                                 <tr>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Compras Internas Afectas sólo Alícuota General</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_general_tax_base_tax_amount"/></span></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="total_vat_general_tax"/></span></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
@@ -363,18 +357,15 @@
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Compras Internas Afectas en Alícuota General + Adicional</b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
                                 <tr>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-left border border-dark"><b style="font-size:12px;">Σ de las: Compras Internas Afectas en Alícuota Reducida</b></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><b style="font-size:12px;"></b></td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="1"></td>
-                                    <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="general_total_base"/></span></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="general_total_credit"/></span></td>
                                     <td colspan="1" style="border-bottom: 1px solid #cacaca; display: table-cell; vertical-align: middle;" class="text-right border border-dark"><span style="font-size:12px;"><t t-esc="general_total_withheld"/></span></td>
                                 </tr>

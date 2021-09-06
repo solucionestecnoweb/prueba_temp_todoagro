@@ -74,7 +74,7 @@ class PurchaseBook(models.TransientModel):
         ws1.col(col).width = 250
         ws1.write_merge(row,row, 0, 10, (" "), sub_header_style)
         ws1.write(row,col+11, _("Compras Sin Derecho a Crédito"),sub_header_style_c)
-        ws1.col(col+11).width = int((len('Compras Sin Derecho a Crédito')+100)*556)
+        ws1.col(col+11).width = int((len('Compras Sin Derecho a Crédito')+80)*556)
         ws1.write_merge(row,row, 12, 17, ("Compras Con Derecho a Crédito"), sub_header_style_c)
         row += 1
         ws1.write_merge(row,row, 0, 9, ("Identificación de la Factura"), sub_header_style_c)
@@ -105,7 +105,7 @@ class PurchaseBook(models.TransientModel):
         ws1.col(col+8).width = int((len('R.I.F. Nro')+26)*256)
         ws1.write(row,col+9, _("Tipo Per."),sub_header_style_c)
         ws1.col(col+9).width = int((len('Tipo Per.')+26)*256)
-        ws1.write(row,col+10, _("Total Compras (Incluya I.V.A.)"),sub_header_style_c)
+        ws1.write(row,col+10, _("Total Compras (Incluye I.V.A.)"),sub_header_style_c)
         ws1.col(col+10).width = int((len('Total Compras (Incluya I.V.A.)')+26)*256)
         ws1.write(row,col+11, _("Exento"),sub_header_style_c)
         ws1.col(col+11).width = int((len('Exempt')+10)*356)
@@ -121,10 +121,10 @@ class PurchaseBook(models.TransientModel):
         ws1.col(col+16).width = int((len('%')+10)*256)
         ws1.write(row,col+17, _("Impuesto"),sub_header_style_c)
         ws1.col(col+17).width = int((len('Impuesto')+10)*256)
-        ws1.write(row,col+18, _("Nro. Comprobant"),sub_header_style_c)
-        ws1.col(col+18).width = int((len('Nro. Comprobant')+10)*256)
+        ws1.write(row,col+18, _("Nro. Comprobante"),sub_header_style_c)
+        ws1.col(col+18).width = int((len('Nro. Comprobante')+10)*256)
         ws1.write(row,col+19, _("Fecha del Comprobante"),sub_header_style_c)
-        ws1.col(col+19).width = int((len('Fecha del Comprobante')+10)*256)
+        ws1.col(col+19).width = int((len('xx/xx/xxxx')+10)*256)
         center = xlwt.easyxf("align: horiz center")
         right = xlwt.easyxf("align: horiz right")
 
@@ -309,49 +309,40 @@ class PurchaseBook(models.TransientModel):
 
         row += 2
         ws1.write_merge(row,row, 0, 1, (" "), center)
-        ws1.write_merge(row,row, 2, 3, ("Base Imponible"), sub_header_style_c)
-        ws1.write_merge(row,row, 4, 5, ("Crédito Fiscal"), sub_header_style_c)
-        ws1.write_merge(row,row, 6, 7, ("Retención de I.V.A."), sub_header_style_c)
+        ws1.write_merge(row,row, 2, 3, ("Crédito Fiscal"), sub_header_style_c)
+        ws1.write_merge(row,row, 4, 5, ("Retención de I.V.A."), sub_header_style_c)
         row += 1
         ws1.write_merge(row,row, 0, 1, ("Total: Compras Exentas y/o sin derecho a crédito fiscal"), sub_header_style_c)
-        ws1.write_merge(row,row, 2, 3, total_exempt_purchases,sub_header_style_r)
+        ws1.write_merge(row,row, 2, 3, (" "), sub_header_style_c)
         ws1.write_merge(row,row, 4, 5, (" "), sub_header_style_c)
-        ws1.write_merge(row,row, 6, 7, (" "), sub_header_style_c)
         row += 1
         ws1.write_merge(row,row, 0, 1, ("Σ de las: Compras Importación Afectas sólo Alícuota General"), sub_header_style_c)
-        ws1.write_merge(row,row, 2, 3, (" ") ,sub_header_style_r)
+        ws1.write_merge(row,row, 2, 3, (" "), sub_header_style_c)
         ws1.write_merge(row,row, 4, 5, (" "), sub_header_style_c)
-        ws1.write_merge(row,row, 6, 7, (" "), sub_header_style_c)
         row += 1
         ws1.write_merge(row,row, 0, 1, ("Σ de las: Compras Importación Afectas en Alícuota General + Adicional"), sub_header_style_c)
-        ws1.write_merge(row,row, 2, 3, (" ") ,sub_header_style_r)
+        ws1.write_merge(row,row, 2, 3, (" "), sub_header_style_c)
         ws1.write_merge(row,row, 4, 5, (" "), sub_header_style_c)
-        ws1.write_merge(row,row, 6, 7, (" "), sub_header_style_c)
         row += 1
         ws1.write_merge(row,row, 0, 1, ("Σ de las: Compras Importación Afectas en Alícuota Reducida"), sub_header_style_c)
-        ws1.write_merge(row,row, 2, 3, (" ") ,sub_header_style_r)
+        ws1.write_merge(row,row, 2, 3, (" "), sub_header_style_c)
         ws1.write_merge(row,row, 4, 5, (" "), sub_header_style_c)
-        ws1.write_merge(row,row, 6, 7, (" "), sub_header_style_c)
         row += 1
         ws1.write_merge(row,row, 0, 1, ("Σ de las: Compras Internas Afectas sólo Alícuota General"), sub_header_style_c)
-        ws1.write_merge(row,row, 2, 3, total_general_tax_base_tax_amount ,sub_header_style_r)
-        ws1.write_merge(row,row, 4, 5, total_vat_general_tax, sub_header_style_r)
-        ws1.write_merge(row,row, 6, 7, (" "), sub_header_style_c)
+        ws1.write_merge(row,row, 2, 3, total_vat_general_tax, sub_header_style_r)
+        ws1.write_merge(row,row, 4, 5, (" "), sub_header_style_c)
         row += 1
         ws1.write_merge(row,row, 0, 1, ("Σ de las: Compras Internas Afectas en Alícuota General + Adicional"), sub_header_style_c)
-        ws1.write_merge(row,row, 2, 3, (" ") ,sub_header_style_r)
+        ws1.write_merge(row,row, 2, 3, (" "), sub_header_style_c)
         ws1.write_merge(row,row, 4, 5, (" "), sub_header_style_c)
-        ws1.write_merge(row,row, 6, 7, (" "), sub_header_style_c)
         row += 1
         ws1.write_merge(row,row, 0, 1, ("Σ de las: Compras Internas Afectas en Alícuota Reducida"), sub_header_style_c)
-        ws1.write_merge(row,row, 2, 3, (" ") ,sub_header_style_r)
+        ws1.write_merge(row,row, 2, 3, (" "), sub_header_style_c)
         ws1.write_merge(row,row, 4, 5, (" "), sub_header_style_c)
-        ws1.write_merge(row,row, 6, 7, (" "), sub_header_style_c)
         row += 1
         ws1.write_merge(row,row, 0, 1, (" "), center)
-        ws1.write_merge(row,row, 2, 3, general_total_base ,sub_header_style_r)
-        ws1.write_merge(row,row, 4, 5, general_total_credit, sub_header_style_r)
-        ws1.write_merge(row,row, 6, 7, general_total_withheld, sub_header_style_r)
+        ws1.write_merge(row,row, 2, 3, general_total_credit, sub_header_style_r)
+        ws1.write_merge(row,row, 4, 5, general_total_withheld, sub_header_style_r)
 
         wb1.save(fp)
         out = base64.encodestring(fp.getvalue())
