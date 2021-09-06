@@ -1,0 +1,41 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bill_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e-20210627\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-21 05:10+0000\n"
+"PO-Revision-Date: 2021-08-21 05:10+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bill_sale
+#: model:ir.model.fields.selection,name:bill_sale.selection__account_move__condition__counted
+msgid "Counted"
+msgstr "Contado"
+
+#. module: bill_sale
+#: model:ir.model.fields.selection,name:bill_sale.selection__account_move__condition__credit
+msgid "Credit"
+msgstr "Crédito"
+
+#. module: bill_sale
+#: model:ir.model,name:bill_sale.model_account_move
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: bill_sale
+#: model:ir.model.fields,field_description:bill_sale.field_account_move__condition
+msgid "Payment conditions"
+msgstr "Condiciones de pago"
+
+#. module: bill_sale
+#: model:ir.actions.report,name:bill_sale.action_report_pre_print
+msgid "Pre-Print"
+msgstr "Pre impreso"
