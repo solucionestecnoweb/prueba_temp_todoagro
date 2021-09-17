@@ -1,20 +1,19 @@
 <odoo>
     <record id="paperformat_individual_account" model="report.paperformat">
-        <field name="name">Pre Print</field>
+        <field name="name">Individual Account</field>
         <field name="default" eval="True"/>
         <field name="format">custom</field>
         <field name="page_height">140</field>
         <field name="page_width">216</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">5</field>
-        <field name="margin_bottom">35</field>
+        <field name="margin_top">16</field>
+        <field name="margin_bottom">50</field>
         <field name="margin_left">5</field>
-        <field name="margin_right">3</field>
+        <field name="margin_right">12</field>
         <field name="header_line" eval="True"/>
         <field name="header_spacing">30</field>
         <field name="dpi">90</field>
     </record>
-
     <report
             id="action_report_pre_print"
             model="account.move"
@@ -24,7 +23,6 @@
             file="bill_sale.report_pre_print"
             paperformat="paperformat_individual_account"
             />
-
         <template id="external_layout_report_pre_print">
             <div class="header">    
                 <div class="container">
@@ -33,18 +31,18 @@
                         <div class="col-4 text center"><br/></div>
                         <div class="col-4 text-center">
                             <br/><br/><br/><br/>
-                            <div class="my-1">
+                            <div class="my-4">
                                 <b style="font-size:16px;"></b><br/>
                             </div>
-                            <div class="my-1">
-                                <b style="font-size:16px;"><t t-esc="o.invoice_number_cli"/></b><br/>  
+                            <div class="my-n2">
+                                <b style="font-size:16px;"><t t-esc="o.invoice_sequence_number_next"/></b><br/>  
                             </div>
-                            <div class="my-n1">
+                            <div class="my-1">
                                 <b style="font-size:17px;"></b><br/>
                             </div>
-                            <div class="mr-5">
+                            <div class="mr-7">
                                 <div class="my-n2">
-                                    <b style="font-size:20px;"><t t-esc="o.invoice_date.strftime('%d %m %Y')"/></b><br/>
+                                    <b style="font-size:19px;"><t t-esc="o.invoice_date"/></b><br/>
                                 </div>
                             </div>        
                         </div> 
@@ -75,7 +73,7 @@
                                             <b style="font-size:12px;"><t t-esc="o.amount_untaxed"/></b>
                                         </div>    
                                         <div class="mt-n1">    
-                                            <b style="font-size:12px;"><t t-esc="o.invoice_line_ids.tax_ids.name"/></b>
+                                            <b style="font-size:12px;"><t t-esc="o.invoice_line_ids.tax_ids.amount"/>%</b>
                                         </div>    
                                         <div class="my-n1">    
                                             <b style="font-size:12px;"><t t-esc="o.alicuota_line_ids.total_exento"/></b><br/>
@@ -98,17 +96,17 @@
                     <t t-call="bill_sale.external_layout_report_pre_print">
                         <div class="page">
                             <br/><br/><br/><br/>
-                            <div class="my-1">
+                            <div class="my-n2">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-4 text center"><br/></div>
                                         <div class="col-4 text-left">
-                                        <b style="font-size:16px;text-align:center;"><t t-esc="o.partner_id.name"/></b><br/>      
+                                        <b style="font-size:13px;text-align:center;"><t t-esc="o.partner_id.name"/></b><br/>      
                                         </div>
                                     </div>
                                 </div> 
                             </div>
-                            <div class="my-n1">    
+                            <div class="my-1">    
                                 <div class="container">   
                                     <div class="row">
                                         <div class="col-3 text center"><br/></div>
@@ -118,7 +116,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="my-n1">
+                            <div class="my-n2">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-4 text center"><br/></div>
@@ -130,7 +128,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="my-n1">    
+                            <div class="my-3">    
                                 <div class="container">    
                                     <div class="row">      
                                         <tr>
@@ -150,7 +148,7 @@
                                 <colgroup>
                                     <col span="1" style="width: 10%"/>
                                     <col span="1" style="width: 20%"/>
-                                    <col span="1" style="width: 8%"/>
+                                    <col span="1" style="width: 4%"/>
                                     <col span="1" style="width: 5%"/>
                                     <col span="1" style="width: 10%"/>
                                 </colgroup> 
@@ -162,7 +160,7 @@
                                     <b><th class="text-center"></th></b>
                                 </thead>
                                 <div class="mr-n4">
-                                    <div class="mt-4">
+                                    <div class="mt-10">
                                         <tbody>
                                             <t t-foreach="o.invoice_line_ids" t-as="item">
                                                 <tr>
@@ -178,7 +176,7 @@
                                                     </td>
                                                 
                                                     <td class="text-center" style="font-size:12px;">
-                                                        <t t-esc="item.tax_ids.name"/>
+                                                        <t t-esc="item.tax_ids.amount"/>%
                                                     </td>
                                                 
                                                     <td class="text-left" style="font-size:12px;">
