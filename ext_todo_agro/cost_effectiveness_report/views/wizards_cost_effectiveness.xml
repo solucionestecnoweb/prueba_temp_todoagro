@@ -1,0 +1,56 @@
+<odoo>
+
+    <data noupdate="0">
+        <record id="wizards_cost_effectiveness" model="ir.ui.view">
+            <field name="name">cost.effectiveness.view</field>
+            <field name="model">cost.effectiveness</field>
+            <field name="arch" type="xml">
+                <form string="Margen de Rentabilidad en Ventas">
+                    <field invisible="1" name="state"/>
+                    <div states="choose">
+                        <group >
+                            <group >
+                                <field name="date_from" required="1"/>
+                                <field name="categ_id" widget="many2many_tags" required="1"/>
+                                <field name="currency_id" required="1"/>
+                            </group>
+                            <group >
+                                <field name="date_to" required="1"/>
+                                <field name="product_id" domain="[('categ_id', 'in', categ_id)]" widget="many2many_tags" required="0"/>
+                            </group>
+                        </group>
+                    </div>
+                    <div states="get">
+                        <group>
+                            <field name="name" colspan="4" invisible="1"/>
+                            <field name="report" filename="name" colspan="4"/>
+                        </group>
+                    </div>
+                    <footer states="choose">
+                        <button name="generate_xls_report" string="Exportar XLS" type="object" class="oe_highlight" />
+                        <button name="print_report" string="Exportar PDF" type="object" class="oe_highlight" />
+                        <button special="cancel" string="Cancelar" class="oe_highlight" />
+                    </footer>
+                    <footer states="get">
+                        <button special="cancel" string="Cancelar" class="oe_highlight" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_cost_effectivenes" model="ir.actions.act_window">
+            <field name="name">Margen de Rentabilidad en Ventas</field>
+            <field name="res_model">cost.effectiveness</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizards_cost_effectiveness"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem   name="Margen de Rentabilidad en Ventas" 
+                    parent="sale.menu_sale_report"
+                    id="cost_effectiveness_menu" 
+                    action="cost_effectiveness_report.action_cost_effectivenes"
+                    sequence="1"
+                    />
+    </data>
+
+</odoo>

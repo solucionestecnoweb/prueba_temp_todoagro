@@ -1,0 +1,138 @@
+<odoo>
+    <record id="paperformat_horizontal" model="report.paperformat">
+        <field name="name">Horizontal predeterminado</field>
+        <field name="orientation">Landscape</field>
+    </record>
+
+    <report
+            id="action_cost_effectiveness"
+            model="cost.effectiveness"
+            string="Margen de Rentabilidad en Ventas"
+            report_type="qweb-pdf"
+            name="cost_effectiveness_report.cost_effectiveness"
+            file="cost_effectiveness_report.cost_effectiveness"
+            menu="True"
+            paperformat="paperformat_horizontal"
+            />
+
+        <template id="external_layout_cost_effectiveness">
+
+            <div class="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 text-left"><br/>
+                            <b style="font-size:12px; text-align:center;"><t t-esc="o.company_id.name"/></b><br/>
+                            <b style="font-size:12px; text-align:center;"><t t-esc="o.company_id.vat"/></b><br/>
+                            <b style="font-size:12px; text-align:center;">Dirección Fiscal:</b><br/>
+                            <b style="font-size:12px; text-align:center;"><t t-esc="o.company_id.street"/></b><br/>
+                        </div>
+                        <div class="col-6 text-center"><br/>
+                            <b style="font-size:20px;">Margen de Rentabilidad en Ventas</b><br/>
+                            <small style="font-size:12px;">Desde: <t t-esc="o.date_from.strftime('%d/%m/%y')"/> Hasta: <t t-esc="o.date_to.strftime('%d/%m/%y')"/></small><br/>
+                        </div>
+                        <div class="col-3 text-right"><br/>
+                            <b style="font-size:12px; text-align:center;">Página <span class="page" style="font-size:12px;"/> de <span class="topage" style="font-size:12px;"/></b><br/>
+                            <b style="font-size:12px; text-align:center;" t-field="o.date_now"></b><br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard">
+                <t t-raw="0"/>
+            </div>
+
+            <div class="footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    
+                </div>
+            </div>
+        </template>
+
+        <template id="cost_effectiveness">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="cost_effectiveness_report.external_layout_cost_effectiveness">
+                        
+                        <div class="page">
+                            <br/><br/>
+                            <table style="width: 100%">
+                                <colgroup>
+                                    <col span="1" style="width: 20%;"/>
+                                    <col span="1" style="width: 10%;"/>
+                                    <col span="1" style="width: 10%;"/>
+                                    <col span="1" style="width: 10%;"/>
+                                    <col span="1" style="width: 10%;"/>
+                                    <col span="1" style="width: 10%;"/>
+                                    <col span="1" style="width: 10%;"/>
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Producto</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Cantidad Vendida</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Costo</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Ingreso Total</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Margen de Rentabilidad</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Dif en $</span>
+                                        </th>
+                                        <th class="text-center border border-dark" style="display: table-cell; vertical-align: middle;">
+                                            <span style="font-size:14px;">Dif en Bs</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                  
+                                <tbody>
+                                    <t t-foreach="o.lines_ids" t-as="item">
+                                        <tr>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.product"/></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.quantity"/></span>
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.costo" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></span>     
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.ingreso" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></span>     
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-center border border-dark">
+                                                <span style="font-size:12px;"><t t-esc="item.margen_ganacia" t-options='{"widget": "float", "decimal_precision": "o.company_id.currency_id"}'/>%</span>     
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                <t t-if ="o.currency_id.name == 'USD'">
+                                                    <span style="font-size:12px;"><t t-esc="item.dif_usd" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></span>
+                                                </t>   
+                                                <t t-if="o.currency_id.id == 3">
+                                                    <span style="font-size:12px;"></span>
+                                                </t>     
+                                            </td>
+                                            <td style="display: table-cell; vertical-align: middle;" class="text-right border border-dark">
+                                                <t t-if="o.currency_id.name == 'USD'">
+                                                    <span style="font-size:12px;"></span>
+                                                </t>     
+                                                <t t-if="o.currency_id.id == 3">
+                                                    <span style="font-size:12px;"><t t-esc="item.dif_bs" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></span>
+                                                </t>     
+                                            </td>                                    
+                                        </tr>
+                                    </t>                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+</odoo>
