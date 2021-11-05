@@ -10,7 +10,7 @@
             <field name="arch" type="xml">
                 <!-- Add your xpath here -->
                 <xpath expr="//button[@name='action_post']" position="before">
-                    <button string="Request Approval" name="approvals_request_refund" type="object" class="oe_highlight" states="draft" attrs="{'invisible': [('type', '!=', 'out_refund')]}"/>
+                    <button string="Request Approval" name="approvals_request_refund" type="object" class="oe_highlight" attrs="{'invisible': ['|',('type', '!=', 'out_refund'), ('state', '!=', 'draft')]}"/>
                     <field name="is_approved" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='currency_id']" position="after">

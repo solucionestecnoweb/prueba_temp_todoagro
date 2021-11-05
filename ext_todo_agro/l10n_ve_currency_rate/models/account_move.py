@@ -9,76 +9,111 @@ from odoo.exceptions import UserError, ValidationError
 class AccountMove(models.Model):
     _inherit = "account.move"
     
-    os_currency_rate = fields.Float(string='Tipo de Cambio', default=1 ,digits=(12, 2))
-    
-    def _check_balanced(self):
-        ''' Assert the move is fully balanced debit = credit.
-        An error is raised if it's not the case.
-        '''
-        moves = self.filtered(lambda move: move.line_ids)
-        if not moves:
-            return
-        debit = 0 
-        credit = 0 
-        for line in moves.line_ids:
-            debit  = debit  + round(line.debit,moves[0].company_currency_id.decimal_places)  
-            credit = credit + round(line.credit,moves[0].company_currency_id.decimal_places)
+    os_currency_rate = fields.Float(string='Tipo de Cambio', default=1 ,digits=(12, 4))
+    custom_rate = fields.Boolean(string='¿Usar Tasa de Cambio Personalizada?')
+    move_aux_id=fields.Integer(compute='_compute_move_id')
 
-        self.env['account.move.line'].flush(self.env['account.move.line']._fields)
-        self.env['account.move'].flush(['journal_id'])
-        self._cr.execute('''
-            SELECT line.move_id, ROUND(SUM(line.debit - line.credit), currency.decimal_places)
-            FROM account_move_line line
-            JOIN account_move move ON move.id = line.move_id
-            JOIN account_journal journal ON journal.id = move.journal_id
-            JOIN res_company company ON company.id = journal.company_id
-            JOIN res_currency currency ON currency.id = company.currency_id
-            WHERE line.move_id IN %s
-            GROUP BY line.move_id, currency.decimal_places
-            HAVING ROUND(SUM(line.debit - line.credit), currency.decimal_places) != 0.0;
-        ''', [tuple(self.ids)])
+    def _compute_move_id(self):
+        self.move_aux_id=self.id
 
-        query_res = self._cr.fetchall()
-        sums = 0 
-        if query_res:
-            sums = query_res[0][1]
-
-        diff = self.env['account.move.line']
-        if int(sums) > 1:
-            return super(AccountMove, self)._check_balanced()
-        
-        if sums != 0:
-            if debit > credit:
-                diff = self.env['account.move.line'].search([('move_id','=',self.id), ('credit','>','0')],limit=1)
-                amount = round(diff.credit,moves[0].company_currency_id.decimal_places) + sums
-                sql = "UPDATE account_move_line SET credit = " + str(amount ) + " WHERE id = " + str(diff.id)
-                self._cr.execute(sql)
-
-            else :
-                diff = self.env['account.move.line'].search([('move_id','=',self.id), ('debit','>','0')],limit=1)
-                amount = round(diff.debit,moves[0].company_currency_id.decimal_places) + sums
-                sql = "UPDATE account_move_line SET debit = " + str(amount ) + " WHERE id = " + str(diff.id)
-                self._cr.execute(sql)
-        return super(AccountMove, self)._check_balanced()
+    def action_post(self):
+        res = super().action_post()
+        self.actualizar_balance()
+        return res 
         
     def set_os_currency_rate(self):
-        if self.invoice_date: 
-            rate = self.env['res.currency.rate'].search([('currency_id', '=', self.currency_id.id),('name','=',self.invoice_date)], limit=1).sorted(lambda x: x.name)
+        for selff in self:
+            if selff.invoice_date:
+                if not selff.custom_rate: 
+                    rate = selff.env['res.currency.rate'].search([('currency_id', '=', selff.currency_id.id),('name','=',selff.invoice_date)], limit=1).sorted(lambda x: x.name)
 
-            if self.currency_id.id != self.company_currency_id.id:
-                if rate:
-                    pass
-                else :
-                    raise UserError(_("No existe tasa de cambio para  " + str(self.invoice_date) + " registre el la siguiente ruta Contabilidad/Configuracion/Contabilidad/Monedas" ))
+                    if selff.currency_id.id != selff.company_currency_id.id:
+                        if rate:
+                            pass
+                        else :
+                            raise UserError(_("No existe tasa de cambio para  " + str(selff.invoice_date) + " registre el la siguiente ruta Contabilidad/Configuracion/Contabilidad/Monedas" ))
 
-            if rate :
-                exchange_rate =  1 / rate.rate
-                self.os_currency_rate = exchange_rate
+                    if rate :
+                        exchange_rate =  1 / rate.rate
+                        selff.os_currency_rate = exchange_rate
     
-    @api.constrains('invoice_date','currency_id')
+    @api.constrains('invoice_date','currency_id','')
     def _check_os_currency_rate(self):
         self.set_os_currency_rate()
     
     @api.onchange('invoice_date','currency_id')
     def _onchange_os_currency_rate(self):
         self.set_os_currency_rate()
+    
+    @api.onchange('os_currency_rate','amount_total')
+    def _onchange_custom_rate(self):
+        self.actualizar_balance()
+
+    @api.constrains('os_currency_rate','amount_total')
+    def _constrains_custom_rate(self):
+        self.actualizar_balance()
+
+    def actualizar_balance(self):
+        for move in self:
+            for item in move.line_ids:
+                tasa = move.os_currency_rate
+                if item.amount_currency > 0:
+                    if move.currency_id.id == move.company_id.currency_id.id:
+                        item.debit = item.amount_currency
+                        item.debit_aux = item.amount_currency / tasa
+                        ##item.amount_currency=item.amount_currency/tasa
+                    else:
+
+                        item.debit = item.amount_currency * tasa
+                        item.debit_aux = item.amount_currency
+                elif item.amount_currency < 0:
+                    if move.currency_id.id == move.company_id.currency_id.id:
+                        item.credit = (item.amount_currency) * (-1)
+                        item.credit_aux = (item.amount_currency / tasa) * (-1)
+                        ##item.amount_currency=(item.amount_currency/tasa)*(-1)
+                    else:
+                        item.credit = (item.amount_currency * tasa) * (-1)
+                        item.credit_aux = (item.amount_currency) * (-1)
+
+
+class AccountPayment(models.Model):
+    _inherit = "account.payment"
+
+    @api.constrains('move_id','state')
+    def _os_constrains_move_id_rate(self):
+        if len(self.move_line_ids) > 0:
+            self.move_line_ids[0].move_id.os_currency_rate = self.rate
+
+    """@api.constrains('payment_id')
+    def _os_constrains_payment_id(self):
+        for item in self.line_ids:
+            if item.payment_id:
+                if item.payment_id.rate > 0:
+                    self.os_currency_rate = item.payment_id.rate
+
+    def actualizar_balance(self):
+        for move in self:
+            for item in move.line_ids:
+                tasa = move.os_currency_rate
+                if item.amount_currency > 0:
+                    if self.currency_id.id == self.company_id.currency_id.id:
+                        item.debit = item.amount_currency
+                        item.debit_aux = item.amount_currency / tasa
+                        ##item.amount_currency=item.amount_currency/tasa
+                    else:
+                        if item.payment_id:
+                            if item.payment_id.rate > 0:
+                                tasa=item.payment_id.rate
+                        item.debit = item.amount_currency * tasa
+                        item.debit_aux = item.amount_currency
+                elif item.amount_currency < 0:
+                    if self.currency_id.id == self.company_id.currency_id.id:
+                        item.credit = (item.amount_currency) * (-1)
+                        item.credit_aux = (item.amount_currency / tasa) * (-1)
+                        ##item.amount_currency=(item.amount_currency/tasa)*(-1)
+                    else:
+                        if item.payment_id:
+                            if item.payment_id.rate>0:
+                                tasa=item.payment_id.rate
+                        item.credit = (item.amount_currency * tasa) * (-1)
+                        item.credit_aux = (item.amount_currency) * (-1)"""
