@@ -21,6 +21,7 @@
         'views/exchange_rate.xml',
         'views/account_move.xml',
         # 'views/sale_order.xml',
+        'views/purchase_order.xml',
         'security/ir.model.access.csv',
         'data/data.xml',
     ],

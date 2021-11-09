@@ -12,6 +12,8 @@ from odoo.tools.misc import formatLang, get_lang
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
+    rate = fields.Float(string='Tasa', default=lambda x: x.env['res.currency.rate'].search([('name', '<=', fields.Date.today()), ('currency_id', '=', 2)], limit=1).sell_rate ,digits=(12, 2))
+
     def action_view_invoice(self):
         data = super(PurchaseOrder, self).action_view_invoice()
         data['context']['default_os_currency_rate'] = self.rate
