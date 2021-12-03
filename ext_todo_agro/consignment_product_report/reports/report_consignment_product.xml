@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+  
+    <record id="paperformat_report_consignment_product" model="report.paperformat">
+            <field name="default" eval="True"/>
+            <field name="name">Formato nuevo de Nota entrega</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">96</field>
+        </record>
+
+
+<record id="action_consignment_product_report" model="ir.actions.report">
+            <field name="name">Productos con consignación</field>
+            <field name="model">consignment.product.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">consignment_product_report.report_consignment_product</field>
+            <field name="report_file">consignment_product_report.report_consignment_product</field>
+            <field name="binding_type">report</field>
+        </record>
+
+<record id="consignment_product_report.action_consignment_product_report" model="ir.actions.report">
+    <field name="paperformat_id" ref="consignment_product_report.paperformat_report_consignment_product" />
+</record>
+
+    <template id="report_consignment_product">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <style>
+                    table, th, td {
+                        border: 5px solid black;
+                        border-collapse: collapse;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <h3><span t-esc="o.retorna_facturas_proveedor().company_id.name"/></h3>
+                            <h4><span t-esc="o.retorna_facturas_proveedor().company_id.vat"/></h4>
+                                <!-- <p><span t-field="o.from_date"/></p> -->
+                                <h4>Fecha de facturación: &amp;nbsp; (<span t-esc="o.retorna_fecha()['from']"/>
+                                &amp;nbsp; - &amp;nbsp; <span t-esc="o.retorna_fecha()['to']"/>)</h4><br/>
+
+                                <h4 style="text-align: center;">Relación de Productos en Consignación</h4><br/>
+
+<table class="table table-bordered" style="font-size:13px;!important;padding:-5px!important;font-weight:bold;">
+<thead>
+  <tr class="table-secondary">
+    <th style="padding:-5px;!important">Socio del negocio</th>
+    <th>Factura</th>
+    <th>Fecha Contable</th>
+    <th>Producto</th>
+    <th>UM Compra</th>
+    <th>Existencia a la Fecha</th>
+    <th>Cantidad a Facturar</th>
+    <th>Precio</th>
+    <th>% Desc.</th>
+    <th>Neto Línea</th>
+    <th>Impuestos Cliente</th>
+    <th>Estado del Documento</th>
+  </tr>
+</thead>
+<t t-foreach="o.retorna_facturas_proveedor()"  t-as="c">
+    <t t-foreach="c.invoice_line_ids"  t-as="p">
+        <tr>
+            <td><span t-esc="' '.join(c.partner_id.mapped('name'))"/></td>
+            <td><span t-esc="c.name"/></td>
+            <td><span t-esc="c.date"/></td>
+            <td><span t-esc="p.product_id.name"/></td>
+            <td><span t-esc="' '.join(p.product_id.uom_po_id.mapped('name'))"/></td>
+            <td><span t-esc="p.product_id.qty_available"/></td>
+            <td>Germany</td>
+            <td><span t-esc="p.product_id.list_price2"/></td>
+            <td>0</td>
+            <td>Germany</td>
+            <td><span t-esc="', '.join(p.product_id.taxes_id.mapped('name'))"/></td>
+            <td><span t-esc="c.state"/></td>
+        </tr>
+    </t>
+</t>
+
+
+</table>
+
+                         </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    </data>
+</odoo>
