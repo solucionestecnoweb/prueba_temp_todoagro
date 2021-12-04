@@ -1,0 +1,692 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<odoo>
+    <data>
+      <record id="paperformat_libro_ventas" model="report.paperformat">
+
+       <field name="default" eval="True"/>
+        <field name="name">Folio Libro Ventas</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">497</field>
+        <field name="page_width">810</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">32</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">9</field>
+        <field name="dpi">96</field>
+      </record>
+
+        <report
+          id="libro_factura_clientes"
+          model="account.wizard.libro.ventas"
+          string="Libro de ventas"
+          report_type="qweb-pdf"
+          name="libro_ventas.reporte_factura_clientes_todoagro"
+          paperformat="libro_ventas.paperformat_libro_ventas"
+          />
+          <!--paperformat="libro_ventas.paperformat_libro_ventas"-->
+
+
+          <template id="reporte_factura_clientes_todoagro" name="">
+             <t t-call="web.html_container">
+
+                  <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="o">
+                      <div class="page">
+
+                        <table class="table table-condensed ">
+                          <tr>
+                            <td colspan="31">
+                              <h1>Libro de Ventas</h1>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="31"><h9>Razón Social: <t t-esc="o.company_id.name"/> </h9></td>
+                          </tr>
+                          <tr>
+                            <td colspan="31">Rif: <h9><span t-esc="o.doc_cedula2(o.company_id.id)">
+                            </span></h9></td>
+                          </tr>
+                          <tr>
+                            <td colspan="31"><h9>Dirección Fiscal:
+                              <span t-field="o.company_id.street"> </span> <t t-esc="o.company_id.city" /> <t t-esc="o.company_id.state_id.name"/> <t t-esc="o.company_id.zip" /> <t t-esc="o.company_id.country_id.name" /></h9>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="31"><h9>Periodo:
+                              <span t-field="o.date_from"></span> &amp;nbsp;Hasta:<span t-field="o.date_to"></span></h9>
+                            </td>
+                          </tr>
+
+                          <tbody class="table table-bordered">
+                          
+                            <!-- Primera Fila -->
+                            <tr>
+                              <td colspan="9" align="center">Identificación de la Factura</td>
+                              <td align="center"></td>
+                              <td rowspan="3" align="center"><br/>Total Ventas<br/>Incluye<br/>IVA</td>
+                              <td rowspan="3" align="center"><br/>Ventas<br/>No<br/>Gravadas</td>
+                              <td align="center" colspan="6"></td>
+                              <td rowspan="3" align="center"><br/>Retención<br/>de I.V.A.</td>
+                              <td rowspan="3" align="center"><br/><br/>Nro Comprobante</td>
+                            </tr>
+                            <!-- Segunda Fila -->
+                            <tr>
+                              <td rowspan="2" colspan="1" align="center"><br/>Fecha</td>
+                              <td rowspan="2" colspan="1" align="center"><br/>Control</td>
+                              <td colspan="4" align="center">Documento</td>
+                              <td rowspan="2" align="center">Tipo<br/>Reg</td>
+                              <td rowspan="2" align="center">Nombre - Razon<br/>Social del<br/>Cliente</td>
+                              <td rowspan="2" align="center">R.I.F.<br/>Nro.</td>
+                              <td rowspan="2" align="center">Tipo<br/>Per</td>
+                              <td colspan="3" align="center">Ventas de Exportación</td>
+                              <td colspan="3" align="center">Ventas Internas</td>
+                            </tr>
+                            <!-- Tercera Fila -->
+                            <tr>
+                              <td width="250">Factura</td>
+                              <td width="250">N/ Crédito</td>
+                              <td width="250">N/ Débito</td>
+                              <td width="250">D. Afectado</td>
+                              <td>Base</td>
+                              <td>%</td>
+                              <td>Impuesto</td>
+                              <td>Base</td>
+                              <td>%</td>
+                              <td>Impuesto</td>
+                            </tr>
+                          </tbody>
+                          
+                          <!-- INICIO VARIABLES DE ENTORNOS -->
+                          <t t-set="contador" t-value="0"/>
+                          <t t-set="acum_venta_iva" t-value="0"/>
+                          <t t-set="acum_exento" t-value="0"/>
+                          <t t-set="acum_fob" t-value="0"/>
+
+                          <!-- varuables de contribiyentes -->
+                          <t t-set="acum_b_reducida" t-value="0"/>
+                          <t t-set="acum_reducida" t-value="0"/>
+                          <t t-set="acum_b_general" t-value="0"/>                          
+                          <t t-set="acum_iva" t-value="0"/>
+
+                          <!-- variables no contribuyentes -->
+                          <t t-set="acum_b_reducida2" t-value="0"/>
+                          <t t-set="acum_reducida2" t-value="0"/>
+                          <t t-set="acum_b_general2" t-value="0"/>
+                          <t t-set="acum_iva2" t-value="0"/>
+
+                          <t t-set="acum_general" t-value="0"/>
+                          <t t-set="acum_base" t-value="0"/>               
+                          <t t-set="acum_adicional1" t-value="0"/>
+                          <t t-set="acum_adicional" t-value="0"/>
+                          <t t-set="acum_base2" t-value="0"/>              
+                          <t t-set="acum_adicional2" t-value="0"/>
+
+
+                          <t t-set="acum_iva_ret" t-value="0"/>
+
+                          <t t-set="acum_base_general" t-value="0"/>
+                          <t t-set="acum_base_adicional" t-value="0"/>
+                          <t t-set="acum_base_reducida" t-value="0"/>
+
+                          <t t-set="acum_base_general_internacional" t-value="0"/>
+                          <t t-set="acum_base_adicional_internacional" t-value="0"/>
+                          <t t-set="acum_base_reducida_internacional" t-value="0"/>
+                          <t t-set="acum_general_internacional" t-value="0"/>
+                          <t t-set="acum_adicional_internacional" t-value="0"/>
+                          <t t-set="acum_reducida_internacional" t-value="0"/>
+
+                          <t t-set="acum_ret_general" t-value="0"/>
+                          <t t-set="acum_ret_adicional" t-value="0"/>
+                          <t t-set="acum_ret_reducida" t-value="0"/>
+
+                          <t t-set="total_bases" t-value="0"/>
+                          <t t-set="total_debitos" t-value="0"/>
+                          <t t-set="total_retenidos" t-value="0"/>
+
+                          <!-- FIN VARIABLES DE ENTORNOS -->
+
+                          <tbody class="table table-bordered">
+                          <t t-foreach="o.line.sorted(key=lambda x: (x.name,x.invoice_ctrl_number ),reverse=False)" t-as="line" >
+                            <!-- variables para los resumenes de totales-->
+
+                            <t t-if="line.invoice_id.partner_id.vendor != 'international'">
+                              <t t-set="acum_base_general" t-value="acum_base_general+line.base_general"/>
+                              <t t-set="acum_general" t-value="acum_general+line.alicuota_general"/>
+                              <t t-set="acum_base_adicional" t-value="acum_base_adicional+line.base_adicional"/>
+                              <t t-set="acum_adicional" t-value="acum_adicional+line.alicuota_adicional"/>
+                              <t t-set="acum_base_reducida" t-value="acum_base_reducida+line.base_reducida"/>
+                              <t t-set="acum_reducida" t-value="acum_reducida + line.alicuota_reducida"/>
+                            </t>
+                            <t t-else="">
+                              <t t-set="acum_base_general_internacional" t-value="acum_base_general_internacional+line.base_general"/>
+                              <t t-set="acum_general_internacional" t-value="acum_general_internacional+line.alicuota_general"/>
+                              <t t-set="acum_base_adicional_internacional" t-value="acum_base_adicional_internacional+line.base_adicional"/>
+                              <t t-set="acum_adicional_internacional" t-value="acum_adicional_internacional+line.alicuota_adicional"/>
+                              <t t-set="acum_base_reducida_internacional" t-value="acum_base_reducida_internacional+line.base_reducida"/>
+                              <t t-set="acum_reducida_internacional" t-value="acum_reducida_internacional + line.alicuota_reducida"/>
+                            </t>
+
+
+                            <t t-if="line.state_retantion == 'posted' ">
+                              <t t-set="acum_ret_general" t-value="acum_ret_general+line.retenido_general"/>
+
+                              <t t-set="acum_ret_adicional" t-value="acum_ret_adicional+line.retenido_adicional"/>
+
+                              <t t-set="acum_ret_reducida" t-value="acum_ret_reducida+line.retenido_reducida"/>
+                            </t>
+
+                            <!-- Fin variables para los resumenes de totales-->
+                            <tr>
+                              <!-- Fecha -->
+                              <td><t t-esc="line.formato_fecha2(line.invoice_id.invoice_date)"/></td>
+                              <!-- Control -->
+                              <td><t t-esc="line.invoice_ctrl_number"/></td>
+                              <!-- Factura -->
+                              <td>
+                                <t t-if="line.tipo_doc == '01' ">
+                                  <t t-esc="line.invoice_number"/>
+                                </t>
+                              </td>
+                              <!-- N/ Crédito -->
+                              <td>
+                                <t t-if="line.tipo_doc == '02' ">
+                                  <t t-esc="line.invoice_number"/>
+                                </t>
+                              </td>
+                              <!-- N/ Débito -->
+                              <td>
+                                <t t-if="line.tipo_doc == '03' ">
+                                  <t t-esc="line.invoice_number"/>
+                                </t>
+                              </td>
+                              <!-- D. Afectado -->
+                              <td>
+                                <t t-if="line.tipo_doc == '02' or  line.tipo_doc == '03' ">
+                                  <t t-esc="line.ref"/>
+                                </t>
+                              </td>
+                              <!-- Tip Reg -->
+                              <td><t t-esc="line.tipo_doc"/>-Reg</td>
+                              <!-- Nombre - Razon Social del Cliente -->
+                              <td><t t-esc="line.partner.name"/></td>
+                              <!-- R.I.F. Nro. -->
+                              <td><t t-esc="line.doc_cedula(line.partner.id)"/></td>
+                              <!-- Tipo Per -->
+                              <t t-if="line.partner.people_type == 'resident_nat_people' ">
+                                <td>PNRE</td>
+                              </t>
+                              <t t-elif="line.partner.people_type == 'non_resit_nat_people'">
+                                <td>PNNR</td>
+                              </t>
+                              <t t-elif="line.partner.people_type == 'domi_ledal_entity'">
+                                <td>PJDO</td>
+                              </t>
+                              <t t-elif="line.partner.people_type == 'legal_ent_not_domicilied'">
+                                <td>PJND</td>
+                              </t>
+                              <t t-if="not line.partner.people_type">
+                                <td> </td>
+                              </t>
+                              <!-- Total Ventas Incluye IVA -->
+                              <td>
+                                <div align="right">
+                                  <t t-esc="line.float_format(line.sale_total)"/>
+                                  <t t-set="acum_venta_iva" t-value="acum_venta_iva+line.sale_total"/>
+                                </div>
+                              </td>
+                              <!-- Ventas No Gravadas -->
+                              <td>
+                                <div align="right">
+                                  <t t-esc="line.float_format(line.total_exento)"/>
+                                  <t t-set="acum_exento" t-value="acum_exento+line.total_exento"/>
+                                </div>
+                              </td>
+                              <!-- Base Exportación -->
+                              <td>
+                                <t t-if="line.invoice_id.partner_id.vendor == 'international'">
+                                  <div align="right">
+                                    <t t-esc="line.float_format(line.base_reducida + line.base_general + line.base_adicional)"/>
+                                    <t t-set="acum_b_reducida2" t-value="acum_b_reducida2+(line.base_reducida + line.base_general + line.base_adicional)"/>
+                                  </div>
+                                </t>
+                                <t t-else="">
+                                  <div align="right">
+                                    0,00
+                                  </div>
+                                </t>
+                              </td>
+                              <!-- % Exportación -->
+                              <td>
+                                <t t-if="line.invoice_id.partner_id.vendor == 'international'">
+                                  <div align="right">
+                                    <t t-if="line.base_general!=0">
+                                      16%
+                                    </t>
+                                    <t t-elif="line.base_reducida!=0">
+                                      8%
+                                    </t>
+                                    <t t-if="line.base_adicional!=0">
+                                      31%
+                                    </t>
+                                  </div>
+                                </t>
+                                <t t-else="">
+                                  <div align="right">
+                                    -
+                                  </div>
+                                </t>
+                              </td>
+                              <!-- Impuesto Exportación -->
+                              <td>
+                                <t t-if="line.invoice_id.partner_id.vendor == 'international'">
+                                  <div align="right">
+                                    <t t-esc="line.float_format(line.alicuota_reducida + line.alicuota_general + line.alicuota_adicional)"/>
+                                    <t t-set="acum_b_general" t-value="acum_b_general+line.alicuota_reducida + line.alicuota_general + line.alicuota_adicional"/>
+                                  </div>
+                                </t>
+                                <t t-else="">
+                                  <div align="right">
+                                    0,00
+                                  </div>
+                                </t>
+                              </td>
+                              <!-- Base Nacional -->
+                              <td>
+                                <t t-if="line.invoice_id.partner_id.vendor != 'international'">
+                                  <div align="right">
+                                    <t t-esc="line.float_format(line.base_reducida + line.base_general + line.base_adicional)"/>
+                                    <t t-set="acum_b_reducida" t-value="acum_b_reducida+(line.base_reducida + line.base_general + line.base_adicional)"/>
+                                  </div>
+                                </t>
+                                <t t-else="">
+                                  <div align="right">
+                                    0,00
+                                  </div>
+                                </t>
+                              </td>
+                              <!-- % Nacional -->
+                              <td>
+                                <t t-if="line.invoice_id.partner_id.vendor != 'international'">
+                                  <div align="right">
+                                    <t t-if="line.base_general!=0">
+                                      16%
+                                    </t>
+                                    <t t-elif="line.base_reducida!=0">
+                                      8%
+                                    </t>
+                                    <t t-if="line.base_adicional!=0">
+                                      31%
+                                    </t>
+                                  </div>
+                                </t>
+                                <t t-else="">
+                                  <div align="right">
+                                    -
+                                  </div>
+                                </t>
+                              </td>
+                              <!-- Impuesto Nacional -->
+                              <td>
+                                <t t-if="line.invoice_id.partner_id.vendor != 'international'">
+                                  <div align="right">
+                                    <t t-esc="line.float_format(line.alicuota_reducida + line.alicuota_general + line.alicuota_adicional)"/>
+                                    <t t-set="acum_b_general" t-value="acum_b_general+line.alicuota_reducida + line.alicuota_general + line.alicuota_adicional"/>
+                                  </div>
+                                </t>
+                                <t t-else="">
+                                  <div align="right">
+                                    0,00
+                                  </div>
+                                </t>
+                              </td>
+                              <!-- Retención de I.V.A. -->
+                              <td>
+                                <t t-if="line.vat_ret_id.state == 'posted' ">
+                                  <t t-if="line.invoice_id.partner_id.vendor != 'international'">
+                                    <div align="right">
+                                      <t t-esc="line.float_format(line.iva_retenido)"/>
+                                      <t t-set="acum_iva_ret" t-value="acum_iva_ret+line.iva_retenido"/>
+                                    </div>
+                                  </t>
+                                </t>
+                                <t t-else="">
+                                  <div align="right">
+                                    0,00
+                                  </div>
+                                </t>
+                              </td>
+                              <!-- Nro Comprobante -->
+                              <td>
+                                <t t-if="line.vat_ret_id.state == 'posted' ">
+                                <t t-esc="line.retenido"/>
+                                </t>
+                              </td>
+                            </tr>
+                          </t>
+                          </tbody>
+                          <!-- darrell FILA DE TOTALES -->
+                          <tr>
+                            <!-- Espacio -->
+                            <td colspan="7"> </td>
+                            <!-- Total a la fecha -->
+                            <td colspan="3"><div align="right">TOTAL VENTAS AL <t t-esc="o.date_to.strftime('%d-%m-%Y')"/></div></td>
+                            <!-- Total con IVA -->
+                            <td><div align="right"><t t-esc="o.float_format2(acum_venta_iva)"/></div></td>
+                            <!-- Total Exento -->
+                            <td>
+                            	<div align="right">
+                            		<t t-esc="o.float_format2(acum_exento)"/>
+                            	</div>
+                            </td>
+
+                            <!-- Total Base Exportación -->
+                            <td>
+                              <div align="right">
+                                <t t-esc="o.float_format2(acum_b_reducida2)"/>
+                              </div>
+                            </td>
+                            <!-- Total % Exportación -->
+                            <td>
+                            	<div align="center">
+                            	---
+                            	</div>
+                            </td>
+                            <!-- Total Impuesto Exportación -->
+                            <td>
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_reducida2)"/>
+                              </div>
+                            </td>
+                            <!-- Total Base Nacional -->
+                            <td>
+                              <div align="right">
+                                <t t-esc="o.float_format2(acum_b_reducida)"/>
+                              </div>
+                            </td>
+                            <!-- Total % Nacional -->
+                            <td>
+                            	<div align="center">
+                            	---
+                            	</div>
+                            </td>
+                            <!-- Total Impuesto Nacional -->
+                            <td>
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_b_general)"/>
+                              </div>
+                            </td>
+                            <!-- Total Retención de IVA -->
+                            <td>
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_iva_ret)"/>
+                              </div>
+                            </td>
+                            <!-- Nro Comprobante -->
+                            <td>
+                            	<div align="center">
+                            	---
+                            	</div>
+                            </td>
+                          </tr>
+                          <!-- FIN FILA TOTALES-->
+
+                          <tr>
+                            <td colspan="7"></td><!-- 1 - 7 -->
+
+                            <td colspan="4" style="background-color:#D3D3D3">
+                              <div align="center">
+                              
+                              </div>
+                            </td><!-- 8 - 11-->
+
+                            <td colspan="2" style="background-color:#CCCCCC">
+                              <div align="center">
+                              Base Imponible
+                              </div>
+                            </td><!-- 12 y 13-->
+                            
+                            <td colspan="2" style="background-color:#D3D3D3">
+                               <div align="center">Débito Fiscal</div>
+                            </td><!--14 --><!-- 15-->
+
+                            <td colspan="3" style="background-color:#CCCCCC">
+                              <div align="center">Iva Retenido</div>
+                            </td>  <!-- 16 - 18-->                     
+                          </tr>
+                          <!-- AQUI-->
+
+                          <tr>
+                            <td colspan="7"></td><!-- 1 - 7 -->
+
+                            <td colspan="4">
+                              Total: Ventas Exentas y/o sin derecho a crédito fiscal
+                            </td><!-- 8 - 11-->                          
+
+                            <td colspan="2">
+                              <div align="right">
+                                <t t-esc="o.float_format2(acum_exento)"/>
+                                <t t-set="total_bases" t-value="total_bases+acum_exento"/>
+                              </div>
+                            </td><!-- 12 - 13--> 
+
+                            <td colspan="2"><div align="right">0,00</div></td><!-- 14 - 15-->
+
+                            <td colspan="3"><div align="right">0,00</div></td><!-- 16 - 18-->
+                          </tr>
+                          
+                          <!-- Inicio Importación -->
+                          <tr>
+                            <td colspan="7"></td><!-- 1 - 7 -->
+
+                            <td colspan="4">
+                              Σ de las: Ventas Importación Afectas solo Alicuota General
+                            </td><!-- 8 - 11--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_base_general_internacional)"/>
+                              <t t-set="total_bases" t-value="total_bases+acum_base_general_internacional"/>
+                              </div>
+                            </td><!-- 12 - 13--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_general_internacional)"/>
+                              <t t-set="total_debitos" t-value="total_debitos+(acum_general_internacional)"/>
+                              </div>
+                            </td><!-- 14 - 15-->
+
+                            <td colspan="3">
+                              <div align="right">
+                                0,00
+                              </div>
+                            </td><!-- 16 - 18-->
+                          </tr>
+
+                          <tr>
+                            <td colspan="7"></td><!-- 1 - 7 -->
+
+                            <td colspan="4">
+                              Σ de las: Ventas Importación Afectas en Alicuota General + Adicional
+                            </td><!-- 8 - 11--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_base_adicional_internacional)"/>
+                              <t t-set="total_bases" t-value="total_bases+acum_base_adicional_internacional"/>
+                              </div>
+                            </td><!-- 12 - 13--> 
+            
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_adicional_internacional)"/>
+                              <t t-set="total_debitos" t-value="total_debitos+acum_adicional_internacional"/>
+                              </div>
+                            </td><!-- 14 - 15-->
+
+                            <td colspan="3">
+                              <div align="right">
+                                0,00
+                              </div>
+                            </td><!-- 16 - 18-->
+                          </tr>
+
+                          <tr>
+                            <td colspan="7"></td><!-- 1 - 7 -->
+
+                            <td colspan="4">
+                              Σ de las: Ventas Importación Afectas en Alicuota Reducida
+                            </td><!-- 8 - 11--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_base_reducida_internacional)"/>
+                              <t t-set="total_bases" t-value="total_bases+acum_base_reducida_internacional"/>
+                              </div>
+                            </td><!-- 12 - 13--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_reducida_internacional)"/>
+                              <t t-set="total_debitos" t-value="total_debitos+(acum_reducida_internacional)"/>
+                              </div>
+                            </td><!-- 14 - 15-->
+
+                            <td colspan="3">
+                              <div align="right">
+                                0,00
+                              </div>
+                            </td><!-- 16 - 18-->
+                          </tr>
+                          <!-- Fin Importación -->
+
+                          <!-- Inicio Internas -->
+                          <tr>
+                            <td colspan="7"></td><!-- 1 - 7 -->
+
+                            <td colspan="4">
+                              Σ de las: Ventas Internas Afectas solo Alicuota General
+                            </td><!-- 8 - 11--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_base_general)"/>
+                              <t t-set="total_bases" t-value="total_bases+acum_base_general"/>
+                              </div>
+                            </td><!-- 12 - 13--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_general)"/>
+                              <t t-set="total_debitos" t-value="total_debitos+(acum_general)"/>
+                              </div>
+                            </td><!-- 14 - 15-->
+
+                            <td colspan="3">
+                              <div align="right">
+                                <t t-esc="o.float_format2(acum_ret_general)"/>
+                                <t t-set="total_retenidos" t-value="total_retenidos+acum_ret_general"/>
+                              </div>
+                            </td><!-- 16 - 18-->
+                          </tr>
+
+                          <tr>
+                            <td colspan="7"></td><!-- 1 - 7 -->
+
+                            <td colspan="4">
+                              Σ de las: Ventas Internas Afectas en Alicuota General + Adicional
+                            </td><!-- 8 - 11--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_base_adicional)"/>
+                              <t t-set="total_bases" t-value="total_bases+acum_base_adicional"/>
+                              </div>
+                            </td><!-- 12 - 13--> 
+            
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_adicional)"/>
+                              <t t-set="total_debitos" t-value="total_debitos+acum_adicional"/>
+                              </div>
+                            </td><!-- 14 - 15-->
+
+                            <td colspan="3">
+                              <div align="right">
+                                <t t-esc="o.float_format2(acum_ret_adicional)"/>
+                                <t t-set="total_retenidos" t-value="total_retenidos+acum_ret_adicional"/>
+                              </div>
+                            </td><!-- 16 - 18-->
+                          </tr>
+
+                          <tr>
+                            <td colspan="7"></td><!-- 1 - 7 -->
+
+                            <td colspan="4">
+                              Σ de las: Ventas Internas Afectas en Alicuota Reducida
+                            </td><!-- 8 - 11--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_base_reducida)"/>
+                              <t t-set="total_bases" t-value="total_bases+acum_base_reducida"/>
+                              </div>
+                            </td><!-- 12 - 13--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(acum_reducida)"/>
+                              <t t-set="total_debitos" t-value="total_debitos+(acum_reducida)"/>
+                              </div>
+                            </td><!-- 14 - 15-->
+
+                            <td colspan="3">
+                              <div align="right">
+                                <t t-esc="o.float_format2(acum_ret_reducida)"/>
+                                <t t-set="total_retenidos" t-value="total_retenidos+acum_ret_reducida"/>
+                              </div>
+                            </td><!-- 16 - 18-->
+                          </tr>
+                          <!-- Fin Internas -->
+
+                          <tr>
+                            <td colspan="7"></td><!-- 1 - 7 -->
+
+                            <td colspan="4">
+                              <div align="right">
+                              
+                              </div>
+                            </td><!-- 8 - 11-->                           
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(total_bases)"/>
+                              </div>
+                            </td><!-- 12 - 13--> 
+
+                            <td colspan="2">
+                              <div align="right">
+                              <t t-esc="o.float_format2(total_debitos)"/>
+                              </div>
+                            </td><!-- 14 - 15-->
+
+                            <td colspan="3">
+                              <div align="right">
+                                <t t-esc="o.float_format2(total_retenidos)"/>
+                              </div>
+                            </td><!-- 16 - 18-->
+                          </tr>
+                        </table>
+
+                      </div>
+
+                  </t>
+              </t>
+            </t>
+          </template>
+     </data>
+</odoo>

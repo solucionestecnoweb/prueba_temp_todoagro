@@ -45,7 +45,7 @@
      "depends" : ['base','account','libro_resumen_alicuota'],
 
     # always loaded
-    'data': ['views/wizard_libro_compras.xml','security/ir.model.access.csv','reports/report_factura_proveedores.xml'],  
+    'data': ['views/wizard_libro_compras.xml','security/ir.model.access.csv','reports/report_factura_proveedores_todoagro.xml'],  
     # only loaded in demonstration mode
     'demo': [
     ],

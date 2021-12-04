@@ -26,7 +26,7 @@
     # always loaded
     'data': [
         'views/wizard_libro_ventas.xml',
-        'reports/report_factura_clientes.xml',
+        'reports/report_factura_clientes_todoagro.xml',
         'security/ir.model.access.csv',
         ],  
     # only loaded in demonstration mode
