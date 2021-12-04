@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        
+        <record id="wizards_consignment_product" model="ir.ui.view">
+            <field name="name">consignment.product.wizard.view</field>
+            <field name="model">consignment.product.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Productos con consignación">
+                        <group>
+                            <group>
+                                <field name="from_date"/>
+                            </group>
+                            <group>
+                                <field name="to_date"/>
+                            </group>
+                        </group>
+                    <footer>
+                        <button name="print_report" string="Exportar PDF" type="object" class="oe_highlight" />
+                        o
+                      <button special="cancel" string="Cancelar"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_consignment_product" model="ir.actions.act_window">
+            <field name="name">Reporte de Productos con consignación en rango de fechas</field>
+            <field name="res_model">consignment.product.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizards_consignment_product"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem   name="Productos con consignación" 
+                    parent="stock.menu_warehouse_report"
+                    id="consignment_product_menu" 
+                    action="action_consignment_product"
+                    sequence="7"
+                    />
+
+    </data>
+</odoo>
