@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 from itertools import product
 from operator import mod
@@ -30,3 +31,8 @@ class ConsignmentProductWizard(models.TransientModel):
     def retorna_facturas_proveedor(self):
         return self.env['account.move'].search([('type', '=', 'in_invoice'),
             ('date', '>=', self.from_date),('date', '<=', self.to_date),])
+
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+
+    check_consignment = fields.Boolean("Por consignación")

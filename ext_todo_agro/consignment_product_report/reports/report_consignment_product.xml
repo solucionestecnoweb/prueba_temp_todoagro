@@ -38,10 +38,16 @@
         <t t-call="web.html_container">
             <t t-call="web.basic_layout">
                 <style>
-                    table, th, td {
+                    table, th,{
                         border: 5px solid black;
                         border-collapse: collapse;
                     }
+                    .sinBorde td {padding: 5px;
+                                border-top: 0px;
+                                border-right: 0px;
+                                border-bottom: 0px solid black;
+                                border-left: 0px;
+                                border-style: none;}
                 </style>
                 <t t-foreach="docs" t-as="o">
                         <div class="page">
@@ -56,7 +62,7 @@
 <table class="table table-bordered" style="font-size:13px;!important;padding:-5px!important;font-weight:bold;">
 <thead>
   <tr class="table-secondary">
-    <th style="padding:-5px;!important">Socio del negocio</th>
+    <th>Socio del negocio</th>
     <th>Factura</th>
     <th>Fecha Contable</th>
     <th>Producto</th>
@@ -70,8 +76,13 @@
     <th>Estado del Documento</th>
   </tr>
 </thead>
+
+<t t-value="0" t-set="qty_facturar"/>
+<t t-value="0" t-set="qty_neto"/>
+
 <t t-foreach="o.retorna_facturas_proveedor()"  t-as="c">
     <t t-foreach="c.invoice_line_ids"  t-as="p">
+        <t t-set="cantidad_facturar" t-value="request.env['pos.order'].search([('lines.product_id','=',p.product_id.id),('lines.product_id.product_tmpl_id.check_consignment','=',True)])"/>
         <tr>
             <td><span t-esc="' '.join(c.partner_id.mapped('name'))"/></td>
             <td><span t-esc="c.name"/></td>
@@ -79,17 +90,57 @@
             <td><span t-esc="p.product_id.name"/></td>
             <td><span t-esc="' '.join(p.product_id.uom_po_id.mapped('name'))"/></td>
             <td><span t-esc="p.product_id.qty_available"/></td>
-            <td>Germany</td>
+            <td>
+            <t t-value="0" t-set="qty"/>
+            <t t-foreach="cantidad_facturar"  t-as="cf">
+                <t t-value="cf.lines.product_id.id" t-set="products"/>
+                <t t-if="products == p.product_id.id">
+
+
+                    <t t-foreach="cf.lines"  t-as="lines">
+                        <t t-value="qty + lines.qty" t-set="qty"/>
+                    </t>
+                </t>
+            </t>
+            <t t-esc="qty"/>
+            <t t-value="qty_facturar + qty" t-set="qty_facturar"/>
+            </td>
             <td><span t-esc="p.product_id.list_price2"/></td>
             <td>0</td>
-            <td>Germany</td>
+            <td>
+            <t t-value="0" t-set="neto_linea"/>
+            <t t-foreach="cantidad_facturar"  t-as="cf">
+                <t t-value="cf.lines.product_id.id" t-set="products"/>
+                <t t-if="products == p.product_id.id">
+                    <t t-foreach="cf.lines"  t-as="lines">
+                        <t t-value="neto_linea + lines.price_subtotal_incl" t-set="neto_linea"/>
+                    </t>
+                </t>
+            </t>
+            <t t-esc="neto_linea"/>
+            <t t-value="qty_neto + neto_linea" t-set="qty_neto"/>
+            </td>
             <td><span t-esc="', '.join(p.product_id.taxes_id.mapped('name'))"/></td>
             <td><span t-esc="c.state"/></td>
         </tr>
     </t>
 </t>
+<tr>
+    <td class="sinBorde"></td>
+    <td class="sinBorde"></td>
+    <td class="sinBorde"></td>
+    <td class="sinBorde"></td>
+    <td class="sinBorde"></td>
+    <td>Total</td>
+    <td class="sinBorde"><t t-esc="qty_facturar"/></td>
+    <td class="sinBorde"></td>
+    <td class="sinBorde"></td>
+    <td class="sinBorde"><t t-esc="qty_neto"/></td>
+    <td class="sinBorde"></td>
+    <td class="sinBorde"></td>
+   
 
-
+    </tr>
 </table>
 
                          </div>
