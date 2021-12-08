@@ -62,12 +62,12 @@
 <table class="table table-bordered" style="font-size:13px;!important;padding:-5px!important;font-weight:bold;">
 <thead>
   <tr class="table-secondary">
-    <th>Socio del negocio</th>
+    <th>Proveedores</th>
     <th>Factura</th>
     <th>Fecha Contable</th>
     <th>Producto</th>
     <th>UM Compra</th>
-    <th>Existencia a la Fecha</th>
+    <th>Stock a la mano</th>
     <th>Cantidad a Facturar</th>
     <th>Precio</th>
     <th>% Desc.</th>
@@ -121,7 +121,7 @@
             <t t-value="qty_neto + neto_linea" t-set="qty_neto"/>
             </td>
             <td><span t-esc="', '.join(p.product_id.taxes_id.mapped('name'))"/></td>
-            <td><span t-esc="c.state"/></td>
+            <td><span t-esc="{False: False, 'draft': 'Borrador', 'posted': 'Publicado', 'cancel': 'Cancelado'}[c.state]"/></td>
         </tr>
     </t>
 </t>
